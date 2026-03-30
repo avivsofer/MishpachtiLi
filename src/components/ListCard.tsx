@@ -1,6 +1,7 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { rtlText, theme } from '../theme';
+import { rtlRow, rtlText, theme } from '../theme';
 import { PrimaryButton, SecondaryButton } from './Buttons';
 
 type ListCardProps = {
@@ -33,9 +34,18 @@ export function ListCard({
   const content = (
     <>
       <View style={styles.header}>
-        <Text numberOfLines={1} style={styles.title}>
-          {title}
-        </Text>
+        <View style={styles.titleRow}>
+          <Text numberOfLines={1} style={styles.title}>
+            {title}
+          </Text>
+          {onPress ? (
+            <MaterialCommunityIcons
+              color={theme.colors.textMuted}
+              name="chevron-left"
+              size={18}
+            />
+          ) : null}
+        </View>
         <Text numberOfLines={2} style={styles.subtitle}>
           {subtitle}
         </Text>
@@ -66,7 +76,7 @@ export function ListCard({
 
   if (onPress) {
     return (
-      <Pressable onPress={onPress} style={styles.card}>
+      <Pressable onPress={onPress} style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}>
         {content}
       </Pressable>
     );
@@ -84,10 +94,20 @@ const styles = StyleSheet.create({
     padding: theme.spacing.xl,
     gap: theme.spacing.lg,
   },
+  cardPressed: {
+    opacity: 0.96,
+  },
   header: {
     gap: theme.spacing.xs,
   },
+  titleRow: {
+    ...rtlRow,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: theme.spacing.sm,
+  },
   title: {
+    flex: 1,
     ...theme.typography.cardTitle,
     ...rtlText,
     color: theme.colors.textPrimary,

@@ -18,7 +18,6 @@ import {
   ModalSheet,
   PrimaryButton,
   SearchField,
-  SectionHeader,
   StatusChip,
   TextField,
 } from '../components';
@@ -101,6 +100,8 @@ export function InventoryScreen(_: AppTabScreenProps<'Inventory'>) {
     [items],
   );
 
+  const attentionCount = totals.lowStock + totals.outOfStock;
+
   const filteredItems = useMemo(() => {
     const normalizedSearch = search.trim();
 
@@ -143,35 +144,39 @@ export function InventoryScreen(_: AppTabScreenProps<'Inventory'>) {
   return (
     <AppScreen backgroundDecor={<View style={styles.backgroundDecor} />}>
       <AppHeader
-        subtitle="רואים מיד מה יש, מה כמעט נגמר ומה כבר חסר"
+        subtitle={
+          totals.all === 0
+            ? 'עוד לא שמרתם פריטים בבית'
+            : attentionCount > 0
+              ? `${attentionCount} פריטים צריכים תשומת לב עכשיו`
+              : `${totals.inStock} פריטים זמינים כרגע בבית`
+        }
         title="יש בבית"
         trailing={
           <StatusChip
             icon="fridge-outline"
-            label={`${totals.all} פריטים במלאי`}
+            label={
+              totals.all === 0
+                ? 'עדיין ריק'
+                : attentionCount
+                ? `${attentionCount} דורשים בדיקה`
+                : `${totals.all} במלאי`
+            }
             size="sm"
-            tone="primary"
+            tone={
+              totals.all === 0
+                ? 'neutral'
+                : totals.outOfStock > 0
+                ? 'danger'
+                : totals.lowStock > 0
+                  ? 'warning'
+                  : 'success'
+            }
           />
         }
       />
 
-      <View style={styles.insightCard}>
-        <View style={styles.insightHeader}>
-          <View style={styles.insightCopy}>
-            <Text style={styles.insightTitle}>מלאי הבית</Text>
-            <Text style={styles.insightText}>
-              זה המסך שמספר מה באמת קיים בבית, מה דורש חידוש, ועל מה כדאי לפעול עכשיו.
-            </Text>
-          </View>
-          <View style={styles.insightBadge}>
-            <MaterialCommunityIcons
-              color={theme.colors.primary}
-              name="home-analytics"
-              size={26}
-            />
-          </View>
-        </View>
-
+      <View style={styles.topControls}>
         <View style={styles.overviewRow}>
           <View style={styles.overviewCard}>
             <Text style={styles.overviewValue}>{totals.inStock}</Text>
@@ -224,61 +229,55 @@ export function InventoryScreen(_: AppTabScreenProps<'Inventory'>) {
         </View>
       </View>
 
-      <View style={styles.section}>
-        <SectionHeader
-          subtitle="פעולות מהירות על כל פריט בלי להעמיס על המסך"
-          title="פריטי המלאי"
-        />
-        {filteredItems.length ? (
-          <View style={styles.list}>
-            {filteredItems.map((item) => {
-              const meta = stockStatusMeta[item.stockStatus];
-              const statusHint =
-                item.stockStatus === 'inStock'
-                  ? 'זמין כרגע בבית ואפשר להחזיר לקניות רק אם רוצים להתכונן מראש.'
-                  : item.stockStatus === 'lowStock'
-                    ? 'נשאר מעט, זה זמן טוב לתכנן חידוש לפני שייגמר.'
-                    : 'כרגע חסר בבית, וזו נקודת ההחלטה החשובה ביותר במסך הזה.';
+      {filteredItems.length ? (
+        <View style={styles.list}>
+          {filteredItems.map((item) => {
+            const meta = stockStatusMeta[item.stockStatus];
+            const statusHint =
+              item.stockStatus === 'inStock'
+                ? 'יש כרגע בבית. אפשר להוסיף לקניות רק אם רוצים להיערך מראש.'
+                : item.stockStatus === 'lowStock'
+                  ? 'נשאר מעט בבית, וכדאי לזכור אותו לקנייה הקרובה.'
+                  : 'כרגע חסר בבית. אפשר להחזיר לקניות, להשאיר כנגמר או להסיר.';
 
-              return (
-                <InventoryItemCard
-                  category={item.category}
-                  key={item.id}
-                  name={item.name}
-                  note={item.note}
-                  onAddToShopping={() => handleAddToShopping(item.id)}
-                  onArchive={() => setRemoveId(item.id)}
-                  onEdit={() => {
-                    setEditingId(item.id);
-                    setEditName(item.name);
-                    setEditQuantity(item.quantityLabel ?? '');
-                    setEditNote(item.note ?? '');
-                  }}
-                  onMarkInStock={() => handleStatusChange(item.id, 'inStock')}
-                  onMarkLow={() => handleStatusChange(item.id, 'lowStock')}
-                  onMarkOut={() => beginOutOfStockFlow(item.id)}
-                  quantityLabel={item.quantityLabel}
-                  statusHint={statusHint}
-                  statusLabel={meta.label}
-                  statusTone={meta.tone}
-                  variant={item.stockStatus}
-                />
-              );
-            })}
-          </View>
-        ) : (
-          <EmptyState
-            actionLabel="לאפס חיפוש"
-            description="כדאי לנסות מסנן אחר או לחזור לכל הפריטים כדי לראות את מצב הבית המלא."
-            icon="fridge-outline"
-            onActionPress={() => {
-              setSearch('');
-              setFilter('all');
-            }}
-            title="לא נמצאו פריטים לתצוגה הזו"
-          />
-        )}
-      </View>
+            return (
+              <InventoryItemCard
+                category={item.category}
+                key={item.id}
+                name={item.name}
+                note={item.note}
+                onAddToShopping={() => handleAddToShopping(item.id)}
+                onArchive={() => setRemoveId(item.id)}
+                onEdit={() => {
+                  setEditingId(item.id);
+                  setEditName(item.name);
+                  setEditQuantity(item.quantityLabel ?? '');
+                  setEditNote(item.note ?? '');
+                }}
+                onMarkInStock={() => handleStatusChange(item.id, 'inStock')}
+                onMarkLow={() => handleStatusChange(item.id, 'lowStock')}
+                onMarkOut={() => beginOutOfStockFlow(item.id)}
+                quantityLabel={item.quantityLabel}
+                statusHint={statusHint}
+                statusLabel={meta.label}
+                statusTone={meta.tone}
+                variant={item.stockStatus}
+              />
+            );
+          })}
+        </View>
+      ) : (
+        <EmptyState
+          actionLabel="לאפס חיפוש"
+          description="נסו חיפוש אחר או חזרו לכל הפריטים כדי לראות שוב את מצב הבית."
+          icon="fridge-outline"
+          onActionPress={() => {
+            setSearch('');
+            setFilter('all');
+          }}
+          title="לא נמצאו פריטים לתצוגה הזו"
+        />
+      )}
 
       <ModalSheet
         onClose={() => {
@@ -340,7 +339,7 @@ export function InventoryScreen(_: AppTabScreenProps<'Inventory'>) {
         visible={Boolean(pendingOutOfStockItemId)}
       >
         <SheetOption
-          description="נחזיר את הפריט מייד לרשימת הקניות כדי שלא יישכח."
+          description="הפריט יחזור מיד לרשימת הקניות."
           icon="cart-plus"
           onPress={() => {
             LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -350,7 +349,7 @@ export function InventoryScreen(_: AppTabScreenProps<'Inventory'>) {
           tone="primary"
         />
         <SheetOption
-          description="הפריט יישאר מסומן כנגמר, בלי להוסיף אותו שוב לרשימה."
+          description="הפריט יישאר מסומן כנגמר בלי לחזור לקניות."
           icon="check-circle-outline"
           onPress={() => {
             LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -360,7 +359,7 @@ export function InventoryScreen(_: AppTabScreenProps<'Inventory'>) {
           tone="success"
         />
         <SheetOption
-          description="נוציא את הפריט לחלוטין מהמלאי המקומי של הבית."
+          description="הפריט יוסר לגמרי מהמלאי של הבית."
           icon="trash-can-outline"
           onPress={() => {
             LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -407,44 +406,8 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.primarySoft,
     opacity: 0.48,
   },
-  insightCard: {
-    borderRadius: theme.radius.xl,
-    backgroundColor: theme.colors.surface,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    padding: theme.spacing.xxl,
-    gap: theme.spacing.lg,
-    ...theme.shadow.card,
-  },
-  insightHeader: {
-    ...rtlRow,
-    justifyContent: 'space-between',
-    gap: theme.spacing.lg,
-    alignItems: 'flex-start',
-  },
-  insightCopy: {
-    flex: 1,
-    gap: theme.spacing.sm,
-  },
-  insightTitle: {
-    ...theme.typography.title,
-    ...rtlText,
-    color: theme.colors.textPrimary,
-  },
-  insightText: {
-    ...theme.typography.body,
-    ...rtlText,
-    color: theme.colors.textSecondary,
-  },
-  insightBadge: {
-    width: 54,
-    height: 54,
-    borderRadius: 18,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: theme.colors.primarySoft,
-    borderWidth: 1,
-    borderColor: theme.colors.primaryBorder,
+  topControls: {
+    gap: theme.spacing.md,
   },
   overviewRow: {
     ...rtlRow,
@@ -476,9 +439,6 @@ const styles = StyleSheet.create({
     ...rtlRow,
     flexWrap: 'wrap',
     gap: theme.spacing.sm,
-  },
-  section: {
-    gap: theme.spacing.lg,
   },
   list: {
     gap: theme.spacing.md,

@@ -37,7 +37,7 @@ export function ListsScreen({ navigation }: AppTabScreenProps<'Lists'>) {
   return (
     <AppScreen>
       <AppHeader
-        subtitle="תבניות ורשימות שחוזרות על עצמן בבית"
+        subtitle="רשימות מוכנות ורשימות חיות שחוסכות זמן בבית"
         title="רשימות"
         trailing={
           <PrimaryButton
@@ -50,33 +50,8 @@ export function ListsScreen({ navigation }: AppTabScreenProps<'Lists'>) {
 
       <View style={styles.section}>
         <SectionHeader
-          subtitle="נקודת פתיחה מהירה למצבים שחוזרים"
-          title="תבניות"
-        />
-        <View style={styles.list}>
-          {templates.map((list) => {
-            const doneCount = list.items.filter((item) => item.isDone).length;
-
-            return (
-              <ListCard
-                ctaLabel="להתחיל מהתבנית"
-                key={list.id}
-                onCtaPress={() => useTemplateList(list.id)}
-                progressLabel={`${list.items.length} פריטים מוכנים`}
-                progressValue={doneCount / Math.max(list.items.length, 1)}
-                subtitle={list.subtitle}
-                title={list.title}
-                tone={list.accentTone}
-              />
-            );
-          })}
-        </View>
-      </View>
-
-      <View style={styles.section}>
-        <SectionHeader
-          subtitle="הרשימות הפעילות של המשפחה עכשיו"
-          title="רשימות פעילות"
+          subtitle="הרשימות שכבר עוזרות לבית עכשיו"
+          title="בשימוש בבית"
         />
         {activeLists.length ? (
           <View style={styles.list}>
@@ -99,12 +74,37 @@ export function ListsScreen({ navigation }: AppTabScreenProps<'Lists'>) {
         ) : (
           <EmptyState
             actionLabel="ליצור רשימה"
-            description="רשימות קבועות לבית חוסכות כפילויות ומפחיתות עומס."
+            description="אפשר להתחיל מרשימה חופשית, או לבחור תבנית שמכינה את הבית מהר."
             icon="format-list-checkbox"
             onActionPress={() => setSheetOpen(true)}
-            title="עדיין אין רשימות פעילות"
+            title="עוד אין רשימות קבועות לבית"
           />
         )}
+      </View>
+
+      <View style={styles.section}>
+        <SectionHeader
+          subtitle="רשימות מוכנות למצבים שחוזרים שוב ושוב במשפחה"
+          title="להתחיל מהר"
+        />
+        <View style={styles.list}>
+          {templates.map((list) => {
+            const doneCount = list.items.filter((item) => item.isDone).length;
+
+            return (
+              <ListCard
+                ctaLabel="להשתמש ברשימה הזאת"
+                key={list.id}
+                onCtaPress={() => useTemplateList(list.id)}
+                progressLabel={`${list.items.length} פריטים מוכנים`}
+                progressValue={doneCount / Math.max(list.items.length, 1)}
+                subtitle={list.subtitle}
+                title={list.title}
+                tone={list.accentTone}
+              />
+            );
+          })}
+        </View>
       </View>
 
       <ModalSheet

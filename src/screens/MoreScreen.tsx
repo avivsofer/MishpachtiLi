@@ -4,31 +4,31 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { AppHeader, AppScreen, SectionHeader, StatusChip } from '../components';
 import { AppTabScreenProps } from '../navigation/types';
 import { useAppStore } from '../store/useAppStore';
-import { rtlRow, rtlText, theme } from '../theme';
+import { rtlRow, rtlTextBlock, theme } from '../theme';
 
 const entries = [
   {
     key: 'Gifts',
     title: 'מתנות',
-    subtitle: 'רעיונות וקניות קטנות לאירועים',
+    subtitle: 'רעיונות ומתנות קטנות לאירועים קרובים',
     icon: 'gift-outline',
   },
   {
     key: 'Tasks',
     title: 'משימות',
-    subtitle: 'מה עוד פתוח בבית',
+    subtitle: 'מה עוד צריך לקרות בבית',
     icon: 'check-decagram-outline',
   },
   {
     key: 'HouseholdMembers',
     title: 'בני הבית',
-    subtitle: 'מי בפנים ואיך מזמינים עוד',
+    subtitle: 'מי כבר איתכם ואיך מצרפים עוד',
     icon: 'account-group-outline',
   },
   {
     key: 'Settings',
     title: 'הגדרות',
-    subtitle: 'פרופיל, שם הבית והתנתקות',
+    subtitle: 'שם הבית, פרופיל והתנתקות',
     icon: 'cog-outline',
   },
 ] as const;
@@ -38,14 +38,14 @@ export function MoreScreen({ navigation }: AppTabScreenProps<'More'>) {
 
   return (
     <AppScreen>
-      <AppHeader subtitle="כל מה שמסביב לניהול הבית" title="עוד" />
+      <AppHeader subtitle="הדברים שתומכים בבית המשותף שלכם" title="עוד" />
 
       <View style={styles.inviteCard}>
         <View style={styles.inviteTop}>
           <View style={styles.inviteCopy}>
-            <Text style={styles.inviteTitle}>להזמין עוד בני בית</Text>
+            <Text style={styles.inviteTitle}>לצרף עוד בן בית</Text>
             <Text style={styles.inviteText}>
-              קוד המשפחה שלכם מוכן לשיתוף כשיהיה חיבור מלא להזמנות.
+              זה הקוד שאפשר לשתף כדי להצטרף לאותו בית משותף בלי להתחיל מחדש.
             </Text>
           </View>
           <StatusChip direction="ltr" label={household.inviteCode} tone="primary" />
@@ -54,7 +54,7 @@ export function MoreScreen({ navigation }: AppTabScreenProps<'More'>) {
 
       <View style={styles.section}>
         <SectionHeader
-          subtitle="מסכים משלימים למוצר"
+          subtitle="כל מה שעוזר לבית להתנהל יחד בלי להעמיס על המסכים הראשיים"
           title="אפשר להמשיך מכאן"
         />
         <View style={styles.list}>
@@ -106,15 +106,16 @@ const styles = StyleSheet.create({
   inviteCopy: {
     flex: 1,
     gap: theme.spacing.sm,
+    alignItems: 'stretch',
   },
   inviteTitle: {
     ...theme.typography.section,
-    ...rtlText,
+    ...rtlTextBlock,
     color: theme.colors.textPrimary,
   },
   inviteText: {
     ...theme.typography.body,
-    ...rtlText,
+    ...rtlTextBlock,
     color: theme.colors.textSecondary,
   },
   section: {
@@ -139,15 +140,16 @@ const styles = StyleSheet.create({
   copy: {
     flex: 1,
     gap: theme.spacing.xs,
+    alignItems: 'stretch',
   },
   title: {
     ...theme.typography.bodyStrong,
-    ...rtlText,
+    ...rtlTextBlock,
     color: theme.colors.textPrimary,
   },
   subtitle: {
     ...theme.typography.meta,
-    ...rtlText,
+    ...rtlTextBlock,
     color: theme.colors.textSecondary,
   },
 });

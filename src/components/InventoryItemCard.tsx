@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { rtlRow, rtlText, theme } from '../theme';
+import { rtlRow, rtlTextBlock, theme } from '../theme';
 import { SecondaryButton } from './Buttons';
 import { StatusChip } from './StatusChip';
 import type { Tone } from '../types/ui';
@@ -66,6 +66,7 @@ export function InventoryItemCard({
   onArchive,
 }: InventoryItemCardProps) {
   const colors = toneMap[variant];
+  const metaText = quantityLabel ? `${category} · ${quantityLabel}` : category;
 
   const primaryAction =
     variant === 'outOfStock'
@@ -124,22 +125,9 @@ export function InventoryItemCard({
             </Text>
             <StatusChip label={statusLabel} tone={statusTone} />
           </View>
-          <View style={styles.metaRow}>
-            <StatusChip
-              icon="folder-outline"
-              label={category}
-              size="sm"
-              tone="neutral"
-            />
-            {quantityLabel ? (
-              <StatusChip
-                icon="package-variant-closed"
-                label={quantityLabel}
-                size="sm"
-                tone="neutral"
-              />
-            ) : null}
-          </View>
+          <Text numberOfLines={1} style={styles.metaText}>
+            {metaText}
+          </Text>
         </View>
         <View style={styles.headerButtons}>
           <Pressable
@@ -251,6 +239,7 @@ const styles = StyleSheet.create({
   copy: {
     flex: 1,
     gap: theme.spacing.sm,
+    alignItems: 'stretch',
   },
   titleRow: {
     ...rtlRow,
@@ -258,10 +247,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     gap: theme.spacing.sm,
   },
-  metaRow: {
-    ...rtlRow,
-    gap: theme.spacing.sm,
-    flexWrap: 'wrap',
+  metaText: {
+    ...theme.typography.meta,
+    ...rtlTextBlock,
+    color: theme.colors.textSecondary,
   },
   editButton: {
     width: 38,
@@ -292,13 +281,13 @@ const styles = StyleSheet.create({
   },
   name: {
     ...theme.typography.cardTitle,
-    ...rtlText,
+    ...rtlTextBlock,
     flex: 1,
     color: theme.colors.textPrimary,
   },
   statusRow: {
     ...rtlRow,
-    alignItems: 'center',
+    alignItems: 'flex-start',
     gap: theme.spacing.sm,
   },
   statusDot: {
@@ -308,7 +297,7 @@ const styles = StyleSheet.create({
   },
   statusHint: {
     ...theme.typography.meta,
-    ...rtlText,
+    ...rtlTextBlock,
     flex: 1,
     color: theme.colors.textSecondary,
   },
@@ -325,7 +314,7 @@ const styles = StyleSheet.create({
   },
   note: {
     ...theme.typography.meta,
-    ...rtlText,
+    ...rtlTextBlock,
     flex: 1,
     color: theme.colors.textSecondary,
   },

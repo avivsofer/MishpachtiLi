@@ -132,7 +132,6 @@ export function ShoppingListScreen(_: AppTabScreenProps<'Shopping'>) {
 
       <QuickAddBar
         actionLabel="להוסיף"
-        description="מוסיפים מהר, מסמנים כנרכש, והפריט עובר ישר ליש בבית."
         icon="cart-plus"
         onChangeText={setName}
         onSecondaryChangeText={setQuantity}
@@ -141,25 +140,15 @@ export function ShoppingListScreen(_: AppTabScreenProps<'Shopping'>) {
         secondaryPlaceholder="כמות"
         secondaryValue={quantity}
         submitDisabled={!name.trim()}
-        title="הוספה מהירה"
+        title="להוסיף משהו לבית?"
         value={name}
         variant="hero"
       />
 
-      <View style={styles.guidanceRow}>
-        <StatusChip
-          icon="check-circle-outline"
-          label="נרכש עובר אוטומטית למלאי"
-          size="sm"
-          tone="success"
-        />
-        <Text style={styles.guidanceText}>אין צורך לעדכן פעמיים.</Text>
-      </View>
-
       <View style={styles.section}>
         <SectionHeader
-          subtitle="הדברים שעוד צריך להביא הביתה"
-          title="ממתין לקנייה"
+          subtitle="מה שחסר עכשיו בדרך הביתה"
+          title="לקנות עכשיו"
         />
         {pendingItems.length ? (
           <View style={styles.list}>
@@ -178,18 +167,18 @@ export function ShoppingListScreen(_: AppTabScreenProps<'Shopping'>) {
         ) : (
           <EmptyState
             actionLabel="להוסיף פריט ראשון"
-            description="רשימת קניות טובה מתחילה בפריט אחד קטן ונשארת נוחה לאורך היום."
+            description="מוסיפים פריט אחד קטן, ומשם הרשימה כבר זזה יחד עם הבית."
             icon="cart-outline"
             onActionPress={() => setName('חלב')}
-            title="אין כרגע פריטים ממתינים"
+            title="אין כרגע מה לקנות"
           />
         )}
       </View>
 
       <View style={styles.section}>
         <SectionHeader
-          subtitle="אלו הפריטים שכבר עברו ישר ליש בבית"
-          title="נקנה היום"
+          subtitle="מה שכבר סומן ונכנס ישר למלאי הבית"
+          title="נכנס לבית היום"
         />
         <View style={styles.purchasedPanel}>
           {purchasedToday.length ? (
@@ -218,16 +207,16 @@ export function ShoppingListScreen(_: AppTabScreenProps<'Shopping'>) {
                     ) : null}
                   </View>
                   <Text style={styles.purchasedMeta}>
-                    עבר ל"יש בבית" ומוכן לעדכון מצב מלאי
+                    נוסף ליש בבית ומוכן לעדכון מצב
                   </Text>
                 </View>
               </View>
             ))
           ) : (
             <View style={styles.purchasedEmptyBox}>
-              <Text style={styles.purchasedEmptyTitle}>עדיין לא נקנה משהו היום</Text>
+              <Text style={styles.purchasedEmptyTitle}>עוד לא סומן משהו כנרכש</Text>
               <Text style={styles.purchasedEmptyText}>
-                ברגע שתסמנו פריט כנרכש, הוא יופיע כאן ויעבור אוטומטית למלאי.
+                ברגע שתסמנו פריט, הוא יופיע כאן ויעבור אוטומטית ליש בבית.
               </Text>
             </View>
           )}
@@ -247,16 +236,6 @@ const styles = StyleSheet.create({
     borderRadius: 90,
     backgroundColor: theme.colors.accentSoft,
     opacity: 0.55,
-  },
-  guidanceRow: {
-    ...rtlRow,
-    alignItems: 'center',
-    gap: theme.spacing.sm,
-  },
-  guidanceText: {
-    ...theme.typography.meta,
-    ...rtlTextBlock,
-    color: theme.colors.textSecondary,
   },
   section: {
     gap: theme.spacing.lg,

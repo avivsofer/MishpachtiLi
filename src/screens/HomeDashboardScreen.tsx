@@ -14,7 +14,6 @@ import {
 } from '../components';
 import { AppTabScreenProps } from '../navigation/types';
 import {
-  selectCustomLists,
   selectInventoryItems,
   selectShoppingItems,
   selectTasks,
@@ -63,7 +62,6 @@ export function HomeDashboardScreen({ navigation }: AppTabScreenProps<'Home'>) {
   const household = useAppStore((state) => state.household);
   const shoppingItems = useAppStore(selectShoppingItems);
   const inventoryItems = useAppStore(selectInventoryItems);
-  const customLists = useAppStore(selectCustomLists);
   const tasks = useAppStore(selectTasks);
 
   const activeInventoryItems = useMemo(
@@ -76,11 +74,6 @@ export function HomeDashboardScreen({ navigation }: AppTabScreenProps<'Home'>) {
     [tasks],
   );
 
-  const activeLists = useMemo(
-    () => customLists.filter((list) => list.kind === 'active'),
-    [customLists],
-  );
-
   const summary = useMemo(
     () => ({
       itemsToBuy: shoppingItems.filter((item) => item.status === 'pending').length,
@@ -90,10 +83,8 @@ export function HomeDashboardScreen({ navigation }: AppTabScreenProps<'Home'>) {
       outOfStockItems: activeInventoryItems.filter(
         (item) => item.stockStatus === 'outOfStock',
       ).length,
-      activeLists: activeLists.length,
-      openTasks: openTasks.length,
     }),
-    [activeInventoryItems, activeLists.length, openTasks.length, shoppingItems],
+    [activeInventoryItems, shoppingItems],
   );
 
   const needsAttention = useMemo(() => {
@@ -133,21 +124,6 @@ export function HomeDashboardScreen({ navigation }: AppTabScreenProps<'Home'>) {
         : summary.itemsToBuy > 0
           ? `יש ${summary.itemsToBuy} דברים קטנים להשלים כדי שהבית ירגיש מסודר.`
           : 'הבית נראה רגוע כרגע, עם מקום להמשיך לעדכן רשימות ומשימות.';
-
-  const homeSignals = [
-    {
-      label: 'משימות פתוחות',
-      value: summary.openTasks,
-      tone: 'accent' as const,
-      icon: 'check-decagram-outline' as IconName,
-    },
-    {
-      label: 'רשימות פעילות',
-      value: summary.activeLists,
-      tone: 'primary' as const,
-      icon: 'format-list-checkbox' as IconName,
-    },
-  ];
 
   return (
     <AppScreen backgroundDecor={<View style={styles.backgroundDecor} />}>
@@ -190,22 +166,6 @@ export function HomeDashboardScreen({ navigation }: AppTabScreenProps<'Home'>) {
           </View>
         </View>
 
-        <View style={styles.signalRow}>
-          {homeSignals.map((signal) => (
-            <View key={signal.label} style={styles.signalCard}>
-              <View style={styles.signalLabelRow}>
-                <MaterialCommunityIcons
-                  color={theme.colors.textMuted}
-                  name={signal.icon}
-                  size={14}
-                />
-                <Text style={styles.signalLabel}>{signal.label}</Text>
-              </View>
-              <Text style={styles.signalValue}>{signal.value}</Text>
-            </View>
-          ))}
-        </View>
-
         <View style={styles.heroActions}>
           <View style={styles.heroActionPrimary}>
             <PrimaryButton
@@ -229,75 +189,7 @@ export function HomeDashboardScreen({ navigation }: AppTabScreenProps<'Home'>) {
 
       <View style={styles.section}>
         <SectionHeader
-          subtitle="תמונה שקטה אבל מדויקת של הבית"
-          title="היום בבית"
-        />
-        <View style={styles.summaryGrid}>
-          <SummaryCard
-            caption="ממתינים לקנייה"
-            icon="cart-outline"
-            label="לקנות"
-            tone="primary"
-            value={summary.itemsToBuy}
-          />
-          <SummaryCard
-            caption="דורשים מעקב"
-            icon="signal-distance-variant"
-            label="כמעט נגמר"
-            tone="warning"
-            value={summary.lowStockItems}
-          />
-          <SummaryCard
-            caption="מחכים להחלטה"
-            icon="close-circle-outline"
-            label="נגמר"
-            tone="danger"
-            value={summary.outOfStockItems}
-          />
-          <SummaryCard
-            caption="נשארו פתוחות"
-            icon="format-list-checkbox"
-            label="רשימות פעילות"
-            tone="accent"
-            value={summary.activeLists}
-          />
-        </View>
-      </View>
-
-      <View style={styles.section}>
-        <SectionHeader
-          subtitle="קיצורי דרך טבעיים למה שעושים הרבה"
-          title="פעולות מהירות"
-        />
-        <View style={styles.actionGrid}>
-          <DashboardActionTile
-            icon="cart-variant"
-            onPress={() => navigation.navigate('Shopping')}
-            subtitle={`${summary.itemsToBuy} פריטים ממתינים עכשיו`}
-            title="קניות הבית"
-          />
-          <DashboardActionTile
-            icon="fridge-outline"
-            onPress={() => navigation.navigate('Inventory')}
-            subtitle={`${summary.lowStockItems + summary.outOfStockItems} פריטים דורשים תשומת לב`}
-            title="מלאי הבית"
-          />
-          <DashboardActionTile
-            icon="check-decagram-outline"
-            onPress={() => navigation.navigate('Tasks')}
-            subtitle={
-              openTasks.length
-                ? `${openTasks[0].title}${openTasks.length > 1 ? ' ועוד' : ''}`
-                : 'להוסיף משימה קטנה לבית'
-            }
-            title="משימות פתוחות"
-          />
-        </View>
-      </View>
-
-      <View style={styles.section}>
-        <SectionHeader
-          subtitle="אלו הדברים שבאמת כדאי לטפל בהם עכשיו"
+          subtitle="הדברים שכדאי לראות לפני שממשיכים הלאה"
           title="דורש תשומת לב"
         />
         {needsAttention.length ? (
@@ -355,6 +247,67 @@ export function HomeDashboardScreen({ navigation }: AppTabScreenProps<'Home'>) {
             title="אין משהו בוער עכשיו"
           />
         )}
+      </View>
+
+      <View style={styles.section}>
+        <SectionHeader
+          subtitle="מבט קצר על מה שחסר, מה עומד להיגמר ומה כבר מחכה לחידוש"
+          title="במבט אחד"
+        />
+        <View style={styles.summaryGrid}>
+          <SummaryCard
+            caption="מחכים לקנייה"
+            icon="cart-outline"
+            label="לקנות"
+            tone="primary"
+            value={summary.itemsToBuy}
+          />
+          <SummaryCard
+            caption="כדאי לחדש בקרוב"
+            icon="signal-distance-variant"
+            label="כמעט נגמר"
+            tone="warning"
+            value={summary.lowStockItems}
+          />
+          <SummaryCard
+            caption="כבר חסר בבית"
+            icon="close-circle-outline"
+            label="נגמר"
+            tone="danger"
+            value={summary.outOfStockItems}
+          />
+        </View>
+      </View>
+
+      <View style={styles.section}>
+        <SectionHeader
+          subtitle="כניסות ישירות למסכים שמשתמשים בהם הכי הרבה"
+          title="להמשיך מכאן"
+        />
+        <View style={styles.actionGrid}>
+          <DashboardActionTile
+            icon="cart-variant"
+            onPress={() => navigation.navigate('Shopping')}
+            subtitle={`${summary.itemsToBuy} פריטים עדיין חסרים`}
+            title="קניות הבית"
+          />
+          <DashboardActionTile
+            icon="fridge-outline"
+            onPress={() => navigation.navigate('Inventory')}
+            subtitle={`${summary.lowStockItems + summary.outOfStockItems} פריטים דורשים בדיקה`}
+            title="מה יש בבית"
+          />
+          <DashboardActionTile
+            icon="check-decagram-outline"
+            onPress={() => navigation.navigate('Tasks')}
+            subtitle={
+              openTasks.length
+                ? `${openTasks[0].title}${openTasks.length > 1 ? ' ועוד' : ''}`
+                : 'להוסיף משימה קטנה להמשך היום'
+            }
+            title="משימות הבית"
+          />
+        </View>
       </View>
     </AppScreen>
   );
@@ -425,36 +378,6 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.primarySoft,
     borderWidth: 1,
     borderColor: theme.colors.primaryBorder,
-  },
-  signalRow: {
-    ...rtlRow,
-    gap: theme.spacing.sm,
-  },
-  signalCard: {
-    flex: 1,
-    borderRadius: theme.radius.lg,
-    backgroundColor: theme.colors.surfaceWarm,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    padding: theme.spacing.lg,
-    gap: theme.spacing.sm,
-  },
-  signalLabelRow: {
-    ...rtlRow,
-    alignItems: 'center',
-    gap: theme.spacing.xs,
-  },
-  signalLabel: {
-    ...theme.typography.meta,
-    ...rtlTextBlock,
-    color: theme.colors.textSecondary,
-  },
-  signalValue: {
-    fontSize: 24,
-    lineHeight: 28,
-    fontWeight: '700',
-    color: theme.colors.textPrimary,
-    ...rtlTextBlock,
   },
   heroActions: {
     ...rtlRow,
