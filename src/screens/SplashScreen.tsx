@@ -1,0 +1,95 @@
+import { useEffect } from 'react';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+
+import { RootScreenProps } from '../navigation/types';
+import { useAppStore } from '../store/useAppStore';
+import { rtlText, theme } from '../theme';
+
+export function SplashScreen({ navigation }: RootScreenProps<'Splash'>) {
+  const session = useAppStore((state) => state.session);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!session.hasSeenWelcome) {
+        navigation.replace('Welcome');
+        return;
+      }
+
+      if (!session.isAuthenticated) {
+        navigation.replace('Auth');
+        return;
+      }
+
+      if (!session.householdReady) {
+        navigation.replace('HouseholdSetup');
+        return;
+      }
+
+      navigation.replace('App');
+    }, 1200);
+
+    return () => clearTimeout(timer);
+  }, [navigation, session]);
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.orbLarge} />
+      <View style={styles.orbSmall} />
+      <View style={styles.brand}>
+        <Text style={styles.kicker}>עוזר הבית המשפחתי</Text>
+        <Text style={styles.title}>משפחתילי</Text>
+        <Text style={styles.subtitle}>
+          קניות, מלאי, משימות ורעיונות קטנים שמחזיקים בית יחד.
+        </Text>
+      </View>
+      <ActivityIndicator color={theme.colors.primary} />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: theme.colors.background,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: theme.spacing.xxl,
+    gap: theme.spacing.hero,
+  },
+  orbLarge: {
+    position: 'absolute',
+    top: 100,
+    right: -40,
+    width: 220,
+    height: 220,
+    borderRadius: 110,
+    backgroundColor: theme.colors.primarySoft,
+  },
+  orbSmall: {
+    position: 'absolute',
+    bottom: 120,
+    left: -30,
+    width: 140,
+    height: 140,
+    borderRadius: 70,
+    backgroundColor: theme.colors.accentSoft,
+  },
+  brand: {
+    alignItems: 'center',
+    gap: theme.spacing.md,
+  },
+  kicker: {
+    ...theme.typography.label,
+    ...rtlText,
+    color: theme.colors.primary,
+  },
+  title: {
+    ...theme.typography.hero,
+    color: theme.colors.textPrimary,
+  },
+  subtitle: {
+    ...theme.typography.body,
+    ...rtlText,
+    color: theme.colors.textSecondary,
+  },
+});
