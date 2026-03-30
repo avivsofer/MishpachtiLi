@@ -150,14 +150,15 @@ export const ltrText = {
   writingDirection: 'ltr' as const,
 };
 
+const layoutDirection = (I18nManager.isRTL ? 'rtl' : 'ltr') as ViewStyle['direction'];
+
 export const rtlRow = {
-  flexDirection: I18nManager.isRTL
-    ? ('row-reverse' as ViewStyle['flexDirection'])
-    : ('row' as ViewStyle['flexDirection']),
+  direction: layoutDirection,
+  flexDirection: 'row' as ViewStyle['flexDirection'],
 };
 
 export const rtlView = {
-  direction: 'rtl' as const,
+  direction: layoutDirection,
 };
 
 export const navigationTheme: Theme = {

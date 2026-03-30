@@ -6,9 +6,10 @@
 
 - ניווט היררכי עם `React Navigation`: `Root stack` ל־Splash/Welcome/Auth/Setup ו־`App stack` עם bottom tabs ו־screens פנימיים.
 - `Zustand` כ־domain store מקומי עם seed data עברי ופעולות typed.
-- RTL מהיום הראשון: `NavigationContainer` ב־`direction="rtl"`, layoutים ב־`row-reverse`, טקסטים מיושרים לימין ו־Hebrew-first microcopy.
+- RTL מהיום הראשון: `I18nManager` מופעל באתחול, `NavigationContainer` רץ ב־`direction="rtl"`, ורכיבי layout משתמשים ב־helpers לוגיים מתוך `src/theme/index.ts`.
 - design system מרוכז ב־`src/theme/index.ts` עם semantic tokens לצבעים, spacing, radius, typography ו־shadows.
 - רכיבי UI reusable ב־`src/components` עבור buttons, headers, chips, cards, empty states, modal sheet ו־toast.
+- selectors של Zustand נשארים על raw references בלבד, וכל filtering / grouping / summaries נגזרים בתוך `useMemo` ברמת המסך כדי להימנע מ־snapshot loops.
 
 ## מבנה הפרויקט
 
@@ -64,9 +65,17 @@ npm run start
 npm run typecheck
 ```
 
+## גבולות ה־MVP הנוכחי
+
+- האפליקציה מקומית בלבד כרגע: אין persistence, sync או backend.
+- ה־store ב־`src/store/useAppStore.ts` מרכז עדיין את ה־domain actions, אבל המבנה הנוכחי כבר שומר על typed models ו־shared helpers שנוח לפרק בהמשך.
+- Sheets, dialogs ו־toasts הם client-side בלבד ונועדו לזרימת MVP מקומית.
+
 ## איפה לחבר backend בהמשך
 
-- להחליף את seed data ב־repository/service layer נפרד ולחבר `TanStack Query` או data client דומה.
-- לפרק את `src/store/useAppStore.ts` ל־actions async מול API, תוך שמירה על selectors ו־domain types הקיימים.
+- להוסיף קודם persistence מקומי דק מעל ה־store, ורק אחר כך להחליף את seed data ב־repository/service layer נפרד.
+- לפרק את `src/store/useAppStore.ts` ל־slices או domain modules קטנים סביב shopping / inventory / lists / gifts / tasks, בלי לשנות את types וה־selectors היציבים.
+- להעביר כתיבה וקריאה ל־API-ready actions או repositories, כך שה־screens יישארו מול intent-level actions בלבד.
 - לחבר auth אמיתי במקום submit מקומי במסך `src/screens/AuthScreen.tsx`.
 - להחליף invite code/mock household setup בזרימה אמיתית מול backend.
+- להוסיף בדיקות בסיסיות: store action tests, utility tests, ו־screen smoke tests לזרימות הליבה של shopping → inventory.

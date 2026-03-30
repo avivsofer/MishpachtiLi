@@ -18,7 +18,12 @@ export function ModalSheet({
   children,
 }: ModalSheetProps) {
   return (
-    <Modal animationType="slide" transparent visible={visible}>
+    <Modal
+      animationType="slide"
+      onRequestClose={onClose}
+      transparent
+      visible={visible}
+    >
       <View style={styles.overlay}>
         <Pressable onPress={onClose} style={styles.backdrop} />
         <View style={styles.sheet}>

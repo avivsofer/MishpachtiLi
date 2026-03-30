@@ -1,6 +1,13 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import type { ComponentProps } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  type StyleProp,
+  type ViewStyle,
+} from 'react-native';
 
 import { rtlRow, rtlText, theme } from '../theme';
 
@@ -18,6 +25,11 @@ type ActionButtonProps = {
   fullWidth?: boolean;
   size?: ButtonSize;
   tone?: ButtonTone;
+};
+
+type ActionButtonBaseProps = Omit<ActionButtonProps, 'tone'> & {
+  labelColor: string;
+  containerStyle: StyleProp<ViewStyle>;
 };
 
 const primaryToneMap: Record<ButtonTone, string> = {
@@ -63,6 +75,57 @@ const secondaryToneMap: Record<
   },
 };
 
+function ActionButtonBase({
+  label,
+  onPress,
+  disabled,
+  icon,
+  iconSide = 'leading',
+  fullWidth,
+  size = 'default',
+  labelColor,
+  containerStyle,
+}: ActionButtonBaseProps) {
+  const compact = size === 'small';
+  const iconSize = compact ? 16 : 18;
+
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityState={{ disabled: Boolean(disabled) }}
+      disabled={disabled}
+      onPress={onPress}
+      style={({ pressed }) => [
+        styles.base,
+        containerStyle,
+        compact && styles.baseSmall,
+        fullWidth && styles.fullWidth,
+        pressed && styles.pressed,
+        disabled && styles.disabled,
+      ]}
+    >
+      <View style={styles.labelRow}>
+        {icon && iconSide === 'leading' ? (
+          <MaterialCommunityIcons color={labelColor} name={icon} size={iconSize} />
+        ) : null}
+        <Text
+          numberOfLines={1}
+          style={[
+            styles.label,
+            compact && styles.smallLabel,
+            { color: labelColor },
+          ]}
+        >
+          {label}
+        </Text>
+        {icon && iconSide === 'trailing' ? (
+          <MaterialCommunityIcons color={labelColor} name={icon} size={iconSize} />
+        ) : null}
+      </View>
+    </Pressable>
+  );
+}
+
 export function PrimaryButton({
   label,
   onPress,
@@ -73,42 +136,18 @@ export function PrimaryButton({
   size = 'default',
   tone = 'primary',
 }: ActionButtonProps) {
-  const compact = size === 'small';
-
   return (
-    <Pressable
-      accessibilityRole="button"
+    <ActionButtonBase
+      containerStyle={{ backgroundColor: primaryToneMap[tone] }}
       disabled={disabled}
+      fullWidth={fullWidth}
+      icon={icon}
+      iconSide={iconSide}
+      label={label}
+      labelColor={theme.colors.white}
       onPress={onPress}
-      style={({ pressed }) => [
-        styles.base,
-        { backgroundColor: primaryToneMap[tone] },
-        compact && styles.baseSmall,
-        fullWidth && styles.fullWidth,
-        pressed && styles.pressed,
-        disabled && styles.disabled,
-      ]}
-    >
-      <View style={styles.labelRow}>
-        {icon && iconSide === 'leading' ? (
-          <MaterialCommunityIcons
-            color={theme.colors.white}
-            name={icon}
-            size={compact ? 16 : 18}
-          />
-        ) : null}
-        <Text numberOfLines={1} style={[styles.primaryLabel, compact && styles.smallLabel]}>
-          {label}
-        </Text>
-        {icon && iconSide === 'trailing' ? (
-          <MaterialCommunityIcons
-            color={theme.colors.white}
-            name={icon}
-            size={compact ? 16 : 18}
-          />
-        ) : null}
-      </View>
-    </Pressable>
+      size={size}
+    />
   );
 }
 
@@ -122,54 +161,24 @@ export function SecondaryButton({
   size = 'default',
   tone = 'neutral',
 }: Omit<ActionButtonProps, 'tone'> & { tone?: SecondaryTone }) {
-  const compact = size === 'small';
   const colors = secondaryToneMap[tone];
 
   return (
-    <Pressable
-      accessibilityRole="button"
+    <ActionButtonBase
+      containerStyle={{
+        backgroundColor: colors.backgroundColor,
+        borderColor: colors.borderColor,
+        borderWidth: 1,
+      }}
       disabled={disabled}
+      fullWidth={fullWidth}
+      icon={icon}
+      iconSide={iconSide}
+      label={label}
+      labelColor={colors.color}
       onPress={onPress}
-      style={({ pressed }) => [
-        styles.base,
-        {
-          backgroundColor: colors.backgroundColor,
-          borderColor: colors.borderColor,
-          borderWidth: 1,
-        },
-        compact && styles.baseSmall,
-        fullWidth && styles.fullWidth,
-        pressed && styles.pressed,
-        disabled && styles.disabled,
-      ]}
-    >
-      <View style={styles.labelRow}>
-        {icon && iconSide === 'leading' ? (
-          <MaterialCommunityIcons
-            color={colors.color}
-            name={icon}
-            size={compact ? 16 : 18}
-          />
-        ) : null}
-        <Text
-          numberOfLines={1}
-          style={[
-            styles.secondaryLabel,
-            compact && styles.smallLabel,
-            { color: colors.color },
-          ]}
-        >
-          {label}
-        </Text>
-        {icon && iconSide === 'trailing' ? (
-          <MaterialCommunityIcons
-            color={colors.color}
-            name={icon}
-            size={compact ? 16 : 18}
-          />
-        ) : null}
-      </View>
-    </Pressable>
+      size={size}
+    />
   );
 }
 
@@ -227,12 +236,7 @@ const styles = StyleSheet.create({
   fullWidth: {
     alignSelf: 'stretch',
   },
-  primaryLabel: {
-    ...theme.typography.button,
-    ...rtlText,
-    color: theme.colors.white,
-  },
-  secondaryLabel: {
+  label: {
     ...theme.typography.button,
     ...rtlText,
   },

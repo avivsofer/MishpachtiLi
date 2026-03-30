@@ -25,7 +25,12 @@ export function ConfirmationDialog({
   tone = 'default',
 }: ConfirmationDialogProps) {
   return (
-    <Modal animationType="fade" transparent visible={visible}>
+    <Modal
+      animationType="fade"
+      onRequestClose={onCancel}
+      transparent
+      visible={visible}
+    >
       <View style={styles.overlay}>
         <Pressable onPress={onCancel} style={styles.backdrop} />
         <View style={styles.dialog}>

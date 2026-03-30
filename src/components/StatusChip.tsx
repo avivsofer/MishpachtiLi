@@ -69,7 +69,7 @@ export function StatusChip({
         },
       ]}
     >
-      <View style={styles.content}>
+      <View style={[styles.content, direction === 'ltr' ? styles.contentLtr : styles.contentRtl]}>
         {icon ? (
           <MaterialCommunityIcons
             color={colors.color}
@@ -107,9 +107,15 @@ const styles = StyleSheet.create({
     paddingVertical: theme.spacing.xs + 1,
   },
   content: {
-    ...rtlRow,
+    flexDirection: 'row',
     alignItems: 'center',
     gap: theme.spacing.xs,
+  },
+  contentRtl: {
+    ...rtlRow,
+  },
+  contentLtr: {
+    direction: 'ltr',
   },
   label: {
     ...theme.typography.meta,
