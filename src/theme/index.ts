@@ -1,5 +1,5 @@
 import { DefaultTheme, type Theme } from '@react-navigation/native';
-import type { TextStyle, ViewStyle } from 'react-native';
+import { I18nManager, type TextStyle, type ViewStyle } from 'react-native';
 
 export const theme = {
   colors: {
@@ -151,7 +151,9 @@ export const ltrText = {
 };
 
 export const rtlRow = {
-  flexDirection: 'row' as const,
+  flexDirection: I18nManager.isRTL
+    ? ('row-reverse' as ViewStyle['flexDirection'])
+    : ('row' as ViewStyle['flexDirection']),
 };
 
 export const rtlView = {
