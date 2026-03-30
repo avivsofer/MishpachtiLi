@@ -6,9 +6,14 @@ import { useAppStore } from '../store/useAppStore';
 import { rtlText, theme } from '../theme';
 
 export function SplashScreen({ navigation }: RootScreenProps<'Splash'>) {
+  const hasHydrated = useAppStore((state) => state.hasHydrated);
   const session = useAppStore((state) => state.session);
 
   useEffect(() => {
+    if (!hasHydrated) {
+      return;
+    }
+
     const timer = setTimeout(() => {
       if (!session.hasSeenWelcome) {
         navigation.replace('Welcome');
@@ -29,7 +34,7 @@ export function SplashScreen({ navigation }: RootScreenProps<'Splash'>) {
     }, 1200);
 
     return () => clearTimeout(timer);
-  }, [navigation, session]);
+  }, [hasHydrated, navigation, session]);
 
   return (
     <View style={styles.container}>

@@ -1,4 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 import {
   currentMemberId,
@@ -41,11 +43,13 @@ type AppState = {
   customLists: CustomList[];
   gifts: GiftItem[];
   tasks: TaskItem[];
+  hasHydrated: boolean;
   activeToast: ToastMessage | null;
   pendingOutOfStockItemId: string | null;
 };
 
 type AppActions = {
+  setHasHydrated(value: boolean): void;
   completeWelcome(): void;
   signIn(displayName: string): void;
   setupHousehold(payload: HouseholdSetupPayload): void;
@@ -74,6 +78,17 @@ type AppActions = {
 };
 
 export type AppStoreState = AppState & AppActions;
+type PersistedAppState = Pick<
+  AppState,
+  | 'session'
+  | 'household'
+  | 'members'
+  | 'shoppingItems'
+  | 'inventoryItems'
+  | 'customLists'
+  | 'gifts'
+  | 'tasks'
+>;
 
 const createInitialState = (): AppState => ({
   session: { ...seedSession },
@@ -87,6 +102,7 @@ const createInitialState = (): AppState => ({
   })),
   gifts: seedGifts.map((gift) => ({ ...gift })),
   tasks: seedTasks.map((task) => ({ ...task })),
+  hasHydrated: false,
   activeToast: null,
   pendingOutOfStockItemId: null,
 });
@@ -139,9 +155,56 @@ function addOrUpdatePendingShoppingItem(
   return [nextItem, ...items];
 }
 
-export const useAppStore = create<AppStoreState>()((set, get) => ({
-  ...createInitialState(),
-  completeWelcome() {
+function partializeState(state: AppStoreState): PersistedAppState {
+  return {
+    session: state.session,
+    household: state.household,
+    members: state.members,
+    shoppingItems: state.shoppingItems,
+    inventoryItems: state.inventoryItems,
+    customLists: state.customLists,
+    gifts: state.gifts,
+    tasks: state.tasks,
+  };
+}
+
+function mergePersistedState(
+  persistedState: unknown,
+  currentState: AppStoreState,
+): AppStoreState {
+  if (!persistedState || typeof persistedState !== 'object') {
+    return currentState;
+  }
+
+  const typedState = persistedState as Partial<PersistedAppState>;
+
+  return {
+    ...currentState,
+    ...typedState,
+    session: {
+      ...currentState.session,
+      ...(typedState.session ?? {}),
+    },
+    household: {
+      ...currentState.household,
+      ...(typedState.household ?? {}),
+    },
+    members: typedState.members ?? currentState.members,
+    shoppingItems: typedState.shoppingItems ?? currentState.shoppingItems,
+    inventoryItems: typedState.inventoryItems ?? currentState.inventoryItems,
+    customLists: typedState.customLists ?? currentState.customLists,
+    gifts: typedState.gifts ?? currentState.gifts,
+    tasks: typedState.tasks ?? currentState.tasks,
+  };
+}
+
+export const useAppStore = create<AppStoreState>()(
+  persist((set, get) => ({
+    ...createInitialState(),
+    setHasHydrated(value) {
+      set({ hasHydrated: value });
+    },
+    completeWelcome() {
     set((state) => ({
       session: { ...state.session, hasSeenWelcome: true },
     }));
@@ -204,14 +267,15 @@ export const useAppStore = create<AppStoreState>()((set, get) => ({
   logout() {
     const initialState = createInitialState();
 
-    set({
+    set((state) => ({
       ...initialState,
+      hasHydrated: state.hasHydrated,
       session: {
         ...initialState.session,
         hasSeenWelcome: true,
       },
       activeToast: showToast('התנתקת מהחשבון', 'info'),
-    });
+    }));
   },
   dismissToast() {
     set({ activeToast: null });
@@ -652,4 +716,19 @@ export const useAppStore = create<AppStoreState>()((set, get) => ({
       activeToast: showToast('חבר בית נוסף', 'success', 'אפשר לשתף איתו קוד הזמנה'),
     }));
   },
-}));
+  }), {
+    name: 'mishpachtili-app-state',
+    version: 1,
+    storage: createJSONStorage(() => AsyncStorage),
+    partialize: partializeState,
+    merge: (persistedState, currentState) =>
+      mergePersistedState(persistedState, currentState as AppStoreState),
+    onRehydrateStorage: () => (state, error) => {
+      if (error) {
+        console.warn('Failed to rehydrate persisted app state', error);
+      }
+
+      state?.setHasHydrated(true);
+    },
+  }),
+);

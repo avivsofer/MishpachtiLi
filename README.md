@@ -6,6 +6,7 @@
 
 - ניווט היררכי עם `React Navigation`: `Root stack` ל־Splash/Welcome/Auth/Setup ו־`App stack` עם bottom tabs ו־screens פנימיים.
 - `Zustand` כ־domain store מקומי עם seed data עברי ופעולות typed.
+- `Zustand persist` עם `AsyncStorage` עבור שמירה מקומית דקה של state durable בין הפעלות.
 - RTL מהיום הראשון: `I18nManager` מופעל באתחול, `NavigationContainer` רץ ב־`direction="rtl"`, ורכיבי layout משתמשים ב־helpers לוגיים מתוך `src/theme/index.ts`.
 - design system מרוכז ב־`src/theme/index.ts` עם semantic tokens לצבעים, spacing, radius, typography ו־shadows.
 - רכיבי UI reusable ב־`src/components` עבור buttons, headers, chips, cards, empty states, modal sheet ו־toast.
@@ -67,13 +68,14 @@ npm run typecheck
 
 ## גבולות ה־MVP הנוכחי
 
-- האפליקציה מקומית בלבד כרגע: אין persistence, sync או backend.
+- האפליקציה מקומית בלבד כרגע: יש persistence מקומי, אבל אין sync, multi-device או backend.
 - ה־store ב־`src/store/useAppStore.ts` מרכז עדיין את ה־domain actions, אבל המבנה הנוכחי כבר שומר על typed models ו־shared helpers שנוח לפרק בהמשך.
 - Sheets, dialogs ו־toasts הם client-side בלבד ונועדו לזרימת MVP מקומית.
+- state זמני כמו toast פעיל או modal פתוח לא נשמר ונבנה מחדש בכל פתיחה, בכוונה.
 
 ## איפה לחבר backend בהמשך
 
-- להוסיף קודם persistence מקומי דק מעל ה־store, ורק אחר כך להחליף את seed data ב־repository/service layer נפרד.
+- השכבה הבאה היא להפריד את ה־persisted store מ־API/repository boundary, בלי לשנות את ה־screen contracts.
 - לפרק את `src/store/useAppStore.ts` ל־slices או domain modules קטנים סביב shopping / inventory / lists / gifts / tasks, בלי לשנות את types וה־selectors היציבים.
 - להעביר כתיבה וקריאה ל־API-ready actions או repositories, כך שה־screens יישארו מול intent-level actions בלבד.
 - לחבר auth אמיתי במקום submit מקומי במסך `src/screens/AuthScreen.tsx`.
