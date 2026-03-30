@@ -3,7 +3,7 @@ import type { ComponentProps } from 'react';
 import type { KeyboardTypeOptions, TextInputProps } from 'react-native';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
-import { ltrText, rtlRow, rtlText, theme } from '../theme';
+import { ltrText, rtlRow, rtlText, rtlTextBlock, theme } from '../theme';
 import { PrimaryButton } from './Buttons';
 
 type IconName = ComponentProps<typeof MaterialCommunityIcons>['name'];
@@ -335,15 +335,16 @@ const styles = StyleSheet.create({
   quickAddCopy: {
     flex: 1,
     gap: theme.spacing.xs,
+    alignItems: 'stretch',
   },
   quickAddTitle: {
     ...theme.typography.bodyStrong,
-    ...rtlText,
+    ...rtlTextBlock,
     color: theme.colors.textPrimary,
   },
   quickAddDescription: {
     ...theme.typography.meta,
-    ...rtlText,
+    ...rtlTextBlock,
     color: theme.colors.textSecondary,
   },
   quickAddComposer: {

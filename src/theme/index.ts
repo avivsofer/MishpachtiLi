@@ -145,6 +145,11 @@ export const rtlText = {
   writingDirection: 'rtl' as const,
 };
 
+export const rtlTextBlock = {
+  ...rtlText,
+  alignSelf: 'stretch' as const,
+};
+
 export const ltrText = {
   textAlign: 'left' as const,
   writingDirection: 'ltr' as const,

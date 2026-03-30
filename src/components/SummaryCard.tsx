@@ -2,7 +2,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import type { ComponentProps } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { rtlRow, rtlText, theme } from '../theme';
+import { rtlRow, rtlTextBlock, theme } from '../theme';
 import type { Tone } from '../types/ui';
 
 type IconName = ComponentProps<typeof MaterialCommunityIcons>['name'];
@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
   copy: {
     flex: 1,
     gap: theme.spacing.xs,
+    alignItems: 'stretch',
   },
   iconBadge: {
     width: 38,
@@ -133,17 +134,16 @@ const styles = StyleSheet.create({
     lineHeight: 34,
     fontWeight: '700',
     color: theme.colors.textPrimary,
-    textAlign: 'right',
-    writingDirection: 'rtl',
+    ...rtlTextBlock,
   },
   label: {
     ...theme.typography.bodyStrong,
-    ...rtlText,
+    ...rtlTextBlock,
     color: theme.colors.textPrimary,
   },
   caption: {
     ...theme.typography.meta,
-    ...rtlText,
+    ...rtlTextBlock,
     color: theme.colors.textSecondary,
   },
 });

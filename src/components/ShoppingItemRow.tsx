@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { rtlRow, rtlText, theme } from '../theme';
+import { rtlRow, rtlTextBlock, theme } from '../theme';
 import { PrimaryButton, SecondaryButton } from './Buttons';
 import { StatusChip } from './StatusChip';
 
@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
   copy: {
     flex: 1,
     gap: theme.spacing.sm,
+    alignItems: 'stretch',
   },
   titleRow: {
     ...rtlRow,
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
   },
   name: {
     ...theme.typography.cardTitle,
-    ...rtlText,
+    ...rtlTextBlock,
     flex: 1,
     color: theme.colors.textPrimary,
   },
@@ -159,7 +160,7 @@ const styles = StyleSheet.create({
   },
   note: {
     ...theme.typography.meta,
-    ...rtlText,
+    ...rtlTextBlock,
     flex: 1,
     color: theme.colors.textSecondary,
   },

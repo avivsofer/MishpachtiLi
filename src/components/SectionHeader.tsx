@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { rtlRow, rtlText, theme } from '../theme';
+import { rtlRow, rtlText, rtlTextBlock, theme } from '../theme';
 
 type SectionHeaderProps = {
   title: string;
@@ -49,12 +49,12 @@ const styles = StyleSheet.create({
   title: {
     flex: 1,
     ...theme.typography.section,
-    ...rtlText,
+    ...rtlTextBlock,
     color: theme.colors.textPrimary,
   },
   subtitle: {
     ...theme.typography.meta,
-    ...rtlText,
+    ...rtlTextBlock,
     color: theme.colors.textSecondary,
   },
   actionPill: {

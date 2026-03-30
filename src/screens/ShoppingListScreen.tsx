@@ -18,7 +18,7 @@ import {
 import { AppTabScreenProps } from '../navigation/types';
 import { selectMembers, selectShoppingItems } from '../store/selectors';
 import { useAppStore } from '../store/useAppStore';
-import { rtlRow, rtlText, theme } from '../theme';
+import { rtlRow, rtlTextBlock, theme } from '../theme';
 
 const easeLayout = {
   duration: 220,
@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
   },
   guidanceText: {
     ...theme.typography.meta,
-    ...rtlText,
+    ...rtlTextBlock,
     color: theme.colors.textSecondary,
   },
   section: {
@@ -299,6 +299,7 @@ const styles = StyleSheet.create({
   purchasedCopy: {
     flex: 1,
     gap: theme.spacing.xs,
+    alignItems: 'stretch',
   },
   purchasedTitleRow: {
     ...rtlRow,
@@ -308,13 +309,13 @@ const styles = StyleSheet.create({
   },
   purchasedTitle: {
     ...theme.typography.bodyStrong,
-    ...rtlText,
+    ...rtlTextBlock,
     flex: 1,
     color: theme.colors.textPrimary,
   },
   purchasedMeta: {
     ...theme.typography.meta,
-    ...rtlText,
+    ...rtlTextBlock,
     color: theme.colors.textSecondary,
   },
   purchasedEmptyBox: {
@@ -325,12 +326,12 @@ const styles = StyleSheet.create({
   },
   purchasedEmptyTitle: {
     ...theme.typography.bodyStrong,
-    ...rtlText,
+    ...rtlTextBlock,
     color: theme.colors.textPrimary,
   },
   purchasedEmptyText: {
     ...theme.typography.meta,
-    ...rtlText,
+    ...rtlTextBlock,
     color: theme.colors.textSecondary,
   },
 });

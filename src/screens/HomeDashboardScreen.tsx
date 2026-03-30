@@ -20,7 +20,7 @@ import {
   selectTasks,
 } from '../store/selectors';
 import { useAppStore } from '../store/useAppStore';
-import { ltrText, rtlRow, rtlText, theme } from '../theme';
+import { ltrText, rtlRow, rtlText, rtlTextBlock, theme } from '../theme';
 import { getGreeting } from '../utils/formatters';
 
 type IconName = ComponentProps<typeof MaterialCommunityIcons>['name'];
@@ -389,6 +389,7 @@ const styles = StyleSheet.create({
   heroCopy: {
     flex: 1,
     gap: theme.spacing.md,
+    alignItems: 'stretch',
   },
   heroMetaRow: {
     ...rtlRow,
@@ -398,7 +399,7 @@ const styles = StyleSheet.create({
   },
   heroInvite: {
     ...theme.typography.meta,
-    ...rtlText,
+    ...rtlTextBlock,
     color: theme.colors.textSecondary,
   },
   heroInviteCode: {
@@ -407,12 +408,12 @@ const styles = StyleSheet.create({
   },
   heroTitle: {
     ...theme.typography.title,
-    ...rtlText,
+    ...rtlTextBlock,
     color: theme.colors.textPrimary,
   },
   heroText: {
     ...theme.typography.body,
-    ...rtlText,
+    ...rtlTextBlock,
     color: theme.colors.textSecondary,
   },
   heroBadge: {
@@ -445,7 +446,7 @@ const styles = StyleSheet.create({
   },
   signalLabel: {
     ...theme.typography.meta,
-    ...rtlText,
+    ...rtlTextBlock,
     color: theme.colors.textSecondary,
   },
   signalValue: {
@@ -453,8 +454,7 @@ const styles = StyleSheet.create({
     lineHeight: 28,
     fontWeight: '700',
     color: theme.colors.textPrimary,
-    textAlign: 'right',
-    writingDirection: 'rtl',
+    ...rtlTextBlock,
   },
   heroActions: {
     ...rtlRow,
@@ -504,15 +504,16 @@ const styles = StyleSheet.create({
   actionTileCopy: {
     flex: 1,
     gap: theme.spacing.xs,
+    alignItems: 'stretch',
   },
   actionTileTitle: {
     ...theme.typography.bodyStrong,
-    ...rtlText,
+    ...rtlTextBlock,
     color: theme.colors.textPrimary,
   },
   actionTileSubtitle: {
     ...theme.typography.meta,
-    ...rtlText,
+    ...rtlTextBlock,
     color: theme.colors.textSecondary,
   },
   attentionPanel: {
@@ -553,15 +554,16 @@ const styles = StyleSheet.create({
   attentionCopy: {
     flex: 1,
     gap: theme.spacing.xs,
+    alignItems: 'stretch',
   },
   attentionTitle: {
     ...theme.typography.bodyStrong,
-    ...rtlText,
+    ...rtlTextBlock,
     color: theme.colors.textPrimary,
   },
   attentionSubtitle: {
     ...theme.typography.meta,
-    ...rtlText,
+    ...rtlTextBlock,
     color: theme.colors.textSecondary,
   },
 });
