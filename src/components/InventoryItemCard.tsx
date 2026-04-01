@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { rtlRow, rtlTextBlock, theme } from '../theme';
+import { inlineStart, rtlRow, rtlTextBlock, theme } from '../theme';
 import { SecondaryButton } from './Buttons';
 import { StatusChip } from './StatusChip';
 import type { Tone } from '../types/ui';
@@ -224,11 +224,11 @@ const styles = StyleSheet.create({
   },
   rail: {
     position: 'absolute',
-    right: 0,
     top: 14,
     bottom: 14,
     width: 4,
     borderRadius: 999,
+    ...inlineStart(0),
   },
   header: {
     ...rtlRow,

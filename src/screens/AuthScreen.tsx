@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { AppHeader, AppScreen, PrimaryButton, TextField } from '../components';
 import { RootScreenProps } from '../navigation/types';
 import { useAppStore } from '../store/useAppStore';
-import { rtlText, theme } from '../theme';
+import { pickByDirection, rtlText, theme } from '../theme';
 
 export function AuthScreen({ navigation }: RootScreenProps<'Auth'>) {
   const signIn = useAppStore((state) => state.signIn);
@@ -42,7 +42,7 @@ export function AuthScreen({ navigation }: RootScreenProps<'Auth'>) {
       </View>
       <PrimaryButton
         fullWidth
-        icon="arrow-left"
+        icon={pickByDirection('arrow-left', 'arrow-right')}
         iconSide="trailing"
         label="להמשיך להגדרת הבית"
         onPress={() => {

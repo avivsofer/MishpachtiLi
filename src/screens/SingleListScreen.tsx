@@ -11,7 +11,7 @@ import {
 } from '../components';
 import { AppStackScreenProps } from '../navigation/types';
 import { useAppStore } from '../store/useAppStore';
-import { rtlRow, rtlText, theme } from '../theme';
+import { inlineStartAlign, rtlRow, rtlText, theme } from '../theme';
 import { formatProgress } from '../utils/formatters';
 
 export function SingleListScreen({
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     overflow: 'hidden',
     backgroundColor: theme.colors.surfaceMuted,
-    alignItems: 'flex-end',
+    alignItems: inlineStartAlign,
   },
   progressFill: {
     height: 10,

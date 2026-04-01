@@ -2,7 +2,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import type { ComponentProps } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { rtlRow, rtlTextBlock, theme } from '../theme';
+import { inlineStart, rtlRow, rtlTextBlock, theme } from '../theme';
 import type { Tone } from '../types/ui';
 
 type IconName = ComponentProps<typeof MaterialCommunityIcons>['name'];
@@ -104,11 +104,11 @@ const styles = StyleSheet.create({
   },
   accentRail: {
     position: 'absolute',
-    right: 0,
     top: 16,
     bottom: 16,
     width: 4,
     borderRadius: 999,
+    ...inlineStart(0),
   },
   header: {
     ...rtlRow,

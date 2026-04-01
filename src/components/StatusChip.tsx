@@ -2,7 +2,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import type { ComponentProps } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { ltrText, rtlRow, rtlText, theme } from '../theme';
+import { inlineStartAlign, ltrText, rtlRow, rtlText, theme } from '../theme';
 import type { Tone } from '../types/ui';
 
 type IconName = ComponentProps<typeof MaterialCommunityIcons>['name'];
@@ -95,7 +95,7 @@ export function StatusChip({
 
 const styles = StyleSheet.create({
   wrapper: {
-    alignSelf: 'flex-start',
+    alignSelf: inlineStartAlign,
     maxWidth: '100%',
     paddingHorizontal: theme.spacing.md,
     paddingVertical: theme.spacing.xs + 2,

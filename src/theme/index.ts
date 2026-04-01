@@ -1,6 +1,8 @@
 import { DefaultTheme, type Theme } from '@react-navigation/native';
 import { I18nManager, type TextStyle, type ViewStyle } from 'react-native';
 
+export const isRTL = I18nManager.isRTL;
+
 export const theme = {
   colors: {
     background: '#F6F1EA',
@@ -155,7 +157,9 @@ export const ltrText = {
   writingDirection: 'ltr' as const,
 };
 
-const layoutDirection = (I18nManager.isRTL ? 'rtl' : 'ltr') as ViewStyle['direction'];
+const layoutDirection = (isRTL ? 'rtl' : 'ltr') as ViewStyle['direction'];
+export const inlineStartAlign = (isRTL ? 'flex-end' : 'flex-start') as ViewStyle['alignItems'];
+export const inlineEndAlign = (isRTL ? 'flex-start' : 'flex-end') as ViewStyle['alignItems'];
 
 export const rtlRow = {
   direction: layoutDirection,
@@ -165,6 +169,18 @@ export const rtlRow = {
 export const rtlView = {
   direction: layoutDirection,
 };
+
+export function pickByDirection<T>(rtlValue: T, ltrValue: T) {
+  return isRTL ? rtlValue : ltrValue;
+}
+
+export function inlineStart(value: number | string): ViewStyle {
+  return (isRTL ? { right: value } : { left: value }) as ViewStyle;
+}
+
+export function inlineEnd(value: number | string): ViewStyle {
+  return (isRTL ? { left: value } : { right: value }) as ViewStyle;
+}
 
 export const navigationTheme: Theme = {
   ...DefaultTheme,

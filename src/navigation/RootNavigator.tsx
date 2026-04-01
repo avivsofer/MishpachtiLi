@@ -6,7 +6,7 @@ import { AuthScreen } from '../screens/AuthScreen';
 import { HouseholdSetupScreen } from '../screens/HouseholdSetupScreen';
 import { SplashScreen } from '../screens/SplashScreen';
 import { WelcomeScreen } from '../screens/WelcomeScreen';
-import { theme } from '../theme';
+import { pickByDirection, theme } from '../theme';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -16,8 +16,11 @@ export function RootNavigator() {
       initialRouteName="Splash"
       screenOptions={{
         headerShown: false,
-        contentStyle: { backgroundColor: theme.colors.background, direction: 'rtl' },
-        animation: 'fade',
+        contentStyle: {
+          backgroundColor: theme.colors.background,
+          direction: pickByDirection('rtl', 'ltr'),
+        },
+        animation: pickByDirection('slide_from_right', 'slide_from_left'),
       }}
     >
       <Stack.Screen name="Splash" component={SplashScreen} />

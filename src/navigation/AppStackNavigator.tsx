@@ -5,7 +5,7 @@ import { HouseholdMembersScreen } from '../screens/HouseholdMembersScreen';
 import { SettingsScreen } from '../screens/SettingsScreen';
 import { SingleListScreen } from '../screens/SingleListScreen';
 import { TasksScreen } from '../screens/TasksScreen';
-import { theme } from '../theme';
+import { pickByDirection, theme } from '../theme';
 import { AppTabsNavigator } from './MainTabsNavigator';
 import type { AppStackParamList } from './types';
 
@@ -17,8 +17,11 @@ export function AppStackNavigator() {
       initialRouteName="Tabs"
       screenOptions={{
         headerShown: false,
-        contentStyle: { backgroundColor: theme.colors.background, direction: 'rtl' },
-        animation: 'slide_from_left',
+        contentStyle: {
+          backgroundColor: theme.colors.background,
+          direction: pickByDirection('rtl', 'ltr'),
+        },
+        animation: pickByDirection('slide_from_right', 'slide_from_left'),
       }}
     >
       <Stack.Screen name="Tabs" component={AppTabsNavigator} />

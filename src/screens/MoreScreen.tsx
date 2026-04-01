@@ -4,7 +4,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { AppHeader, AppScreen, SectionHeader, StatusChip } from '../components';
 import { AppTabScreenProps } from '../navigation/types';
 import { useAppStore } from '../store/useAppStore';
-import { rtlRow, rtlTextBlock, theme } from '../theme';
+import { pickByDirection, rtlRow, rtlTextBlock, theme } from '../theme';
 
 const entries = [
   {
@@ -79,7 +79,7 @@ export function MoreScreen({ navigation }: AppTabScreenProps<'More'>) {
               </View>
               <MaterialCommunityIcons
                 color={theme.colors.textMuted}
-                name="chevron-left"
+                name={pickByDirection('chevron-left', 'chevron-right')}
                 size={22}
               />
             </Pressable>

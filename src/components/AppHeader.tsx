@@ -1,7 +1,14 @@
 import type { ReactNode } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { rtlRow, rtlTextBlock, theme } from '../theme';
+import {
+  inlineEndAlign,
+  inlineStartAlign,
+  pickByDirection,
+  rtlRow,
+  rtlTextBlock,
+  theme,
+} from '../theme';
 import { IconButton } from './Buttons';
 
 type AppHeaderProps = {
@@ -24,7 +31,7 @@ export function AppHeader({
       <View style={styles.topRow}>
         {showBack && onBack ? (
           <View style={styles.leadingSlot}>
-            <IconButton icon="chevron-right" onPress={onBack} />
+            <IconButton icon={pickByDirection('chevron-right', 'chevron-left')} onPress={onBack} />
           </View>
         ) : null}
         <View style={styles.titleBlock}>
@@ -55,11 +62,11 @@ const styles = StyleSheet.create({
   },
   leadingSlot: {
     width: 40,
-    alignItems: 'flex-end',
+    alignItems: inlineStartAlign,
   },
   trailingSlot: {
     minWidth: 40,
-    alignItems: 'flex-start',
+    alignItems: inlineEndAlign,
   },
   titleBlock: {
     flex: 1,

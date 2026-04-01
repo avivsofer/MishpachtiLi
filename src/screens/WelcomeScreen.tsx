@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { AppScreen, PrimaryButton, StatusChip } from '../components';
 import { RootScreenProps } from '../navigation/types';
 import { useAppStore } from '../store/useAppStore';
-import { rtlRow, rtlText, theme } from '../theme';
+import { pickByDirection, rtlRow, rtlText, theme } from '../theme';
 
 export function WelcomeScreen({ navigation }: RootScreenProps<'Welcome'>) {
   const completeWelcome = useAppStore((state) => state.completeWelcome);
@@ -43,7 +43,7 @@ export function WelcomeScreen({ navigation }: RootScreenProps<'Welcome'>) {
       <View style={styles.footer}>
         <PrimaryButton
           fullWidth
-          icon="arrow-left"
+          icon={pickByDirection('arrow-left', 'arrow-right')}
           iconSide="trailing"
           label="להמשיך"
           onPress={() => {

@@ -19,7 +19,14 @@ import {
   selectTasks,
 } from '../store/selectors';
 import { useAppStore } from '../store/useAppStore';
-import { ltrText, rtlRow, rtlText, rtlTextBlock, theme } from '../theme';
+import {
+  ltrText,
+  pickByDirection,
+  rtlRow,
+  rtlText,
+  rtlTextBlock,
+  theme,
+} from '../theme';
 import { getGreeting } from '../utils/formatters';
 
 type IconName = ComponentProps<typeof MaterialCommunityIcons>['name'];
@@ -50,7 +57,7 @@ function DashboardActionTile({
       </View>
       <MaterialCommunityIcons
         color={theme.colors.textMuted}
-        name="chevron-left"
+        name={pickByDirection('chevron-left', 'chevron-right')}
         size={18}
       />
     </Pressable>
@@ -231,7 +238,7 @@ export function HomeDashboardScreen({ navigation }: AppTabScreenProps<'Home'>) {
                   </View>
                   <MaterialCommunityIcons
                     color={theme.colors.textMuted}
-                    name="chevron-left"
+                    name={pickByDirection('chevron-left', 'chevron-right')}
                     size={18}
                   />
                 </Pressable>

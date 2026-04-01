@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { rtlRow, rtlText, theme } from '../theme';
+import { inlineStartAlign, pickByDirection, rtlRow, rtlText, theme } from '../theme';
 import { PrimaryButton, SecondaryButton } from './Buttons';
 
 type ListCardProps = {
@@ -41,7 +41,7 @@ export function ListCard({
           {onPress ? (
             <MaterialCommunityIcons
               color={theme.colors.textMuted}
-              name="chevron-left"
+              name={pickByDirection('chevron-left', 'chevron-right')}
               size={18}
             />
           ) : null}
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     backgroundColor: theme.colors.surfaceMuted,
     overflow: 'hidden',
-    alignItems: 'flex-end',
+    alignItems: inlineStartAlign,
   },
   progressFill: {
     height: 8,
