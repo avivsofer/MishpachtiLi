@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-import { rtlRow, rtlText, theme } from '../theme';
+import { logicalRow, logicalTextBlock, theme } from '../theme';
 import { StatusChip } from './StatusChip';
 import type { Tone } from '../types/ui';
 
@@ -41,7 +41,7 @@ export function HouseholdMemberRow({
 
 const styles = StyleSheet.create({
   row: {
-    ...rtlRow,
+    ...logicalRow,
     gap: theme.spacing.md,
     alignItems: 'center',
     paddingVertical: theme.spacing.md,
@@ -59,16 +59,18 @@ const styles = StyleSheet.create({
   },
   copy: {
     flex: 1,
+    minWidth: 0,
     gap: theme.spacing.sm,
+    alignItems: 'stretch',
   },
   titleRow: {
-    ...rtlRow,
+    ...logicalRow,
     gap: theme.spacing.sm,
     alignItems: 'center',
   },
   name: {
     ...theme.typography.bodyStrong,
-    ...rtlText,
+    ...logicalTextBlock,
     flex: 1,
     color: theme.colors.textPrimary,
   },

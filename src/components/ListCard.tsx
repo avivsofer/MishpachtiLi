@@ -1,7 +1,13 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { inlineStartAlign, pickByDirection, rtlRow, rtlText, theme } from '../theme';
+import {
+  inlineStartAlign,
+  logicalRow,
+  logicalTextBlock,
+  pickByDirection,
+  theme,
+} from '../theme';
 import { PrimaryButton, SecondaryButton } from './Buttons';
 
 type ListCardProps = {
@@ -99,22 +105,23 @@ const styles = StyleSheet.create({
   },
   header: {
     gap: theme.spacing.xs,
+    alignItems: 'stretch',
   },
   titleRow: {
-    ...rtlRow,
+    ...logicalRow,
     alignItems: 'center',
-    justifyContent: 'space-between',
     gap: theme.spacing.sm,
   },
   title: {
     flex: 1,
+    minWidth: 0,
     ...theme.typography.cardTitle,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textPrimary,
   },
   subtitle: {
     ...theme.typography.body,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
   progressBlock: {
@@ -133,7 +140,7 @@ const styles = StyleSheet.create({
   },
   progressLabel: {
     ...theme.typography.meta,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
 });

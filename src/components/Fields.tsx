@@ -3,7 +3,14 @@ import type { ComponentProps } from 'react';
 import type { KeyboardTypeOptions, TextInputProps } from 'react-native';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
-import { ltrText, rtlRow, rtlText, rtlTextBlock, theme } from '../theme';
+import {
+  logicalRow,
+  logicalText,
+  logicalTextBlock,
+  ltrText,
+  rtlText,
+  theme,
+} from '../theme';
 import { PrimaryButton } from './Buttons';
 
 type IconName = ComponentProps<typeof MaterialCommunityIcons>['name'];
@@ -245,7 +252,7 @@ const styles = StyleSheet.create({
   },
   fieldLabel: {
     ...theme.typography.label,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textPrimary,
   },
   input: {
@@ -270,7 +277,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
   },
   searchWrapper: {
-    ...rtlRow,
+    ...logicalRow,
     alignItems: 'center',
     gap: theme.spacing.sm,
     minHeight: 56,
@@ -293,7 +300,7 @@ const styles = StyleSheet.create({
     flex: 1,
     color: theme.colors.textPrimary,
     ...theme.typography.body,
-    ...rtlText,
+    ...logicalText,
   },
   searchClear: {
     width: 28,
@@ -315,7 +322,7 @@ const styles = StyleSheet.create({
     ...theme.shadow.soft,
   },
   quickAddHeader: {
-    ...rtlRow,
+    ...logicalRow,
     alignItems: 'center',
     gap: theme.spacing.md,
   },
@@ -339,12 +346,12 @@ const styles = StyleSheet.create({
   },
   quickAddTitle: {
     ...theme.typography.bodyStrong,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
     color: theme.colors.textPrimary,
   },
   quickAddDescription: {
     ...theme.typography.meta,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
   quickAddComposer: {
@@ -354,7 +361,7 @@ const styles = StyleSheet.create({
     gap: theme.spacing.lg,
   },
   quickAddInputs: {
-    ...rtlRow,
+    ...logicalRow,
     gap: theme.spacing.sm,
   },
   quickInput: {
@@ -391,7 +398,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.backgroundElevated,
   },
   choiceChip: {
-    ...rtlRow,
+    ...logicalRow,
     alignItems: 'center',
     gap: theme.spacing.sm,
     paddingHorizontal: theme.spacing.lg,
@@ -410,7 +417,8 @@ const styles = StyleSheet.create({
   },
   choiceChipLabel: {
     ...theme.typography.label,
-    ...rtlText,
+    ...logicalText,
+    flexShrink: 1,
     color: theme.colors.textSecondary,
   },
   choiceChipLabelSelected: {

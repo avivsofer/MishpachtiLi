@@ -158,12 +158,36 @@ export const ltrText = {
 };
 
 const layoutDirection = (isRTL ? 'rtl' : 'ltr') as ViewStyle['direction'];
+const logicalWritingDirection = (isRTL ? 'rtl' : 'ltr') as TextStyle['writingDirection'];
+export const textStartAlign = (isRTL ? 'right' : 'left') as TextStyle['textAlign'];
+export const textEndAlign = (isRTL ? 'left' : 'right') as TextStyle['textAlign'];
 export const inlineStartAlign = (isRTL ? 'flex-end' : 'flex-start') as ViewStyle['alignItems'];
 export const inlineEndAlign = (isRTL ? 'flex-start' : 'flex-end') as ViewStyle['alignItems'];
+export const inlineStartSelf = (isRTL ? 'flex-end' : 'flex-start') as ViewStyle['alignSelf'];
+export const inlineEndSelf = (isRTL ? 'flex-start' : 'flex-end') as ViewStyle['alignSelf'];
+
+export const logicalText = {
+  textAlign: textStartAlign,
+  writingDirection: logicalWritingDirection,
+};
+
+export const logicalTextBlock = {
+  ...logicalText,
+  alignSelf: 'stretch' as const,
+};
+
+export const logicalRow = {
+  direction: layoutDirection,
+  flexDirection: (isRTL ? 'row-reverse' : 'row') as ViewStyle['flexDirection'],
+};
+
+export const logicalRowReverse = {
+  direction: layoutDirection,
+  flexDirection: (isRTL ? 'row' : 'row-reverse') as ViewStyle['flexDirection'],
+};
 
 export const rtlRow = {
-  direction: layoutDirection,
-  flexDirection: 'row' as ViewStyle['flexDirection'],
+  ...logicalRow,
 };
 
 export const rtlView = {

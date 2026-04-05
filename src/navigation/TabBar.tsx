@@ -3,7 +3,7 @@ import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { rtlRow, rtlText, theme } from '../theme';
+import { logicalRow, logicalText, theme } from '../theme';
 
 const tabMeta = {
   Home: {
@@ -78,8 +78,7 @@ const styles = StyleSheet.create({
     paddingTop: theme.spacing.md,
   },
   container: {
-    ...rtlRow,
-    justifyContent: 'space-between',
+    ...logicalRow,
     backgroundColor: theme.colors.backgroundElevated,
     borderRadius: 28,
     borderWidth: 1,
@@ -101,7 +100,7 @@ const styles = StyleSheet.create({
   },
   label: {
     ...theme.typography.caption,
-    ...rtlText,
+    ...logicalText,
     color: theme.colors.textMuted,
   },
   labelActive: {

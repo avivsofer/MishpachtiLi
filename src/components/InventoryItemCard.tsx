@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { inlineStart, rtlRow, rtlTextBlock, theme } from '../theme';
+import { inlineStart, logicalRow, logicalTextBlock, theme } from '../theme';
 import { SecondaryButton } from './Buttons';
 import { StatusChip } from './StatusChip';
 import type { Tone } from '../types/ui';
@@ -231,25 +231,24 @@ const styles = StyleSheet.create({
     ...inlineStart(0),
   },
   header: {
-    ...rtlRow,
-    justifyContent: 'space-between',
+    ...logicalRow,
     gap: theme.spacing.md,
     alignItems: 'flex-start',
   },
   copy: {
     flex: 1,
+    minWidth: 0,
     gap: theme.spacing.sm,
     alignItems: 'stretch',
   },
   titleRow: {
-    ...rtlRow,
+    ...logicalRow,
     alignItems: 'center',
-    justifyContent: 'space-between',
     gap: theme.spacing.sm,
   },
   metaText: {
     ...theme.typography.meta,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
   editButton: {
@@ -276,17 +275,17 @@ const styles = StyleSheet.create({
     opacity: 0.9,
   },
   headerButtons: {
-    ...rtlRow,
+    ...logicalRow,
     gap: theme.spacing.sm,
   },
   name: {
     ...theme.typography.cardTitle,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
     flex: 1,
     color: theme.colors.textPrimary,
   },
   statusRow: {
-    ...rtlRow,
+    ...logicalRow,
     alignItems: 'flex-start',
     gap: theme.spacing.sm,
   },
@@ -297,12 +296,12 @@ const styles = StyleSheet.create({
   },
   statusHint: {
     ...theme.typography.meta,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
     flex: 1,
     color: theme.colors.textSecondary,
   },
   noteBox: {
-    ...rtlRow,
+    ...logicalRow,
     alignItems: 'flex-start',
     gap: theme.spacing.sm,
     borderRadius: theme.radius.lg,
@@ -314,7 +313,7 @@ const styles = StyleSheet.create({
   },
   note: {
     ...theme.typography.meta,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
     flex: 1,
     color: theme.colors.textSecondary,
   },
@@ -322,7 +321,7 @@ const styles = StyleSheet.create({
     gap: theme.spacing.sm,
   },
   actionRow: {
-    ...rtlRow,
+    ...logicalRow,
     gap: theme.spacing.sm,
   },
   actionHalf: {

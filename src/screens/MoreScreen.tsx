@@ -4,7 +4,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { AppHeader, AppScreen, SectionHeader, StatusChip } from '../components';
 import { AppTabScreenProps } from '../navigation/types';
 import { useAppStore } from '../store/useAppStore';
-import { pickByDirection, rtlRow, rtlTextBlock, theme } from '../theme';
+import { logicalRow, logicalTextBlock, pickByDirection, theme } from '../theme';
 
 const entries = [
   {
@@ -99,23 +99,24 @@ const styles = StyleSheet.create({
     padding: theme.spacing.xxl,
   },
   inviteTop: {
-    ...rtlRow,
-    justifyContent: 'space-between',
+    ...logicalRow,
+    alignItems: 'flex-start',
     gap: theme.spacing.lg,
   },
   inviteCopy: {
     flex: 1,
+    minWidth: 0,
     gap: theme.spacing.sm,
     alignItems: 'stretch',
   },
   inviteTitle: {
     ...theme.typography.section,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
     color: theme.colors.textPrimary,
   },
   inviteText: {
     ...theme.typography.body,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
   section: {
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
     gap: theme.spacing.md,
   },
   row: {
-    ...rtlRow,
+    ...logicalRow,
     alignItems: 'center',
     gap: theme.spacing.md,
     borderRadius: theme.radius.lg,
@@ -139,17 +140,18 @@ const styles = StyleSheet.create({
   },
   copy: {
     flex: 1,
+    minWidth: 0,
     gap: theme.spacing.xs,
     alignItems: 'stretch',
   },
   title: {
     ...theme.typography.bodyStrong,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
     color: theme.colors.textPrimary,
   },
   subtitle: {
     ...theme.typography.meta,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
 });

@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { rtlRow, rtlTextBlock, theme } from '../theme';
+import { logicalRow, logicalTextBlock, theme } from '../theme';
 import { PrimaryButton, SecondaryButton } from './Buttons';
 import { StatusChip } from './StatusChip';
 
@@ -109,29 +109,29 @@ const styles = StyleSheet.create({
     ...theme.shadow.soft,
   },
   topRow: {
-    ...rtlRow,
+    ...logicalRow,
     alignItems: 'flex-start',
     gap: theme.spacing.md,
   },
   copy: {
     flex: 1,
+    minWidth: 0,
     gap: theme.spacing.sm,
     alignItems: 'stretch',
   },
   titleRow: {
-    ...rtlRow,
+    ...logicalRow,
     alignItems: 'center',
-    justifyContent: 'space-between',
     gap: theme.spacing.sm,
   },
   name: {
     ...theme.typography.cardTitle,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
     flex: 1,
     color: theme.colors.textPrimary,
   },
   metaRow: {
-    ...rtlRow,
+    ...logicalRow,
     flexWrap: 'wrap',
     gap: theme.spacing.sm,
     alignItems: 'center',
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     opacity: 0.92,
   },
   noteBox: {
-    ...rtlRow,
+    ...logicalRow,
     alignItems: 'flex-start',
     gap: theme.spacing.sm,
     borderRadius: theme.radius.lg,
@@ -160,12 +160,12 @@ const styles = StyleSheet.create({
   },
   note: {
     ...theme.typography.meta,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
     flex: 1,
     color: theme.colors.textSecondary,
   },
   footer: {
-    ...rtlRow,
+    ...logicalRow,
     alignItems: 'center',
     gap: theme.spacing.sm,
   },

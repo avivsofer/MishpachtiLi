@@ -4,9 +4,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import {
   inlineEndAlign,
   inlineStartAlign,
+  logicalRow,
+  logicalTextBlock,
   pickByDirection,
-  rtlRow,
-  rtlTextBlock,
   theme,
 } from '../theme';
 import { IconButton } from './Buttons';
@@ -55,32 +55,34 @@ const styles = StyleSheet.create({
     gap: theme.spacing.sm,
   },
   topRow: {
-    ...rtlRow,
+    ...logicalRow,
     alignItems: 'flex-start',
-    justifyContent: 'space-between',
     gap: theme.spacing.md,
   },
   leadingSlot: {
     width: 40,
     alignItems: inlineStartAlign,
+    flexShrink: 0,
   },
   trailingSlot: {
     minWidth: 40,
     alignItems: inlineEndAlign,
+    flexShrink: 0,
   },
   titleBlock: {
     flex: 1,
+    minWidth: 0,
     gap: theme.spacing.xs,
     alignItems: 'stretch',
   },
   title: {
     ...theme.typography.title,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
     color: theme.colors.textPrimary,
   },
   subtitle: {
     ...theme.typography.body,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
 });

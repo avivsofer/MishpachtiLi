@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-import { rtlRow, rtlText, theme } from '../theme';
+import { logicalRow, logicalTextBlock, theme } from '../theme';
 import { SecondaryButton } from './Buttons';
 import { StatusChip } from './StatusChip';
 import type { Tone } from '../types/ui';
@@ -55,26 +55,28 @@ const styles = StyleSheet.create({
     gap: theme.spacing.md,
   },
   header: {
-    ...rtlRow,
-    justifyContent: 'space-between',
+    ...logicalRow,
+    alignItems: 'flex-start',
     gap: theme.spacing.md,
   },
   copy: {
     flex: 1,
+    minWidth: 0,
     gap: theme.spacing.sm,
+    alignItems: 'stretch',
   },
   title: {
     ...theme.typography.cardTitle,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textPrimary,
   },
   meta: {
     ...theme.typography.meta,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
   actions: {
-    ...rtlRow,
+    ...logicalRow,
     flexWrap: 'wrap',
     gap: theme.spacing.sm,
   },

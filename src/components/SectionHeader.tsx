@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { rtlRow, rtlText, rtlTextBlock, theme } from '../theme';
+import { logicalRow, logicalText, logicalTextBlock, theme } from '../theme';
 
 type SectionHeaderProps = {
   title: string;
@@ -18,20 +18,22 @@ export function SectionHeader({
   return (
     <View style={styles.wrapper}>
       <View style={styles.topRow}>
-        <Text numberOfLines={2} style={styles.title}>
-          {title}
-        </Text>
+        <View style={styles.copy}>
+          <Text numberOfLines={2} style={styles.title}>
+            {title}
+          </Text>
+          {subtitle ? (
+            <Text numberOfLines={3} style={styles.subtitle}>
+              {subtitle}
+            </Text>
+          ) : null}
+        </View>
         {actionLabel && onActionPress ? (
           <Pressable onPress={onActionPress} style={({ pressed }) => [styles.actionPill, pressed && styles.actionPillPressed]}>
             <Text style={styles.action}>{actionLabel}</Text>
           </Pressable>
         ) : null}
       </View>
-      {subtitle ? (
-        <Text numberOfLines={3} style={styles.subtitle}>
-          {subtitle}
-        </Text>
-      ) : null}
     </View>
   );
 }
@@ -41,20 +43,24 @@ const styles = StyleSheet.create({
     gap: theme.spacing.sm,
   },
   topRow: {
-    ...rtlRow,
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    ...logicalRow,
+    alignItems: 'flex-start',
     gap: theme.spacing.md,
   },
-  title: {
+  copy: {
     flex: 1,
+    minWidth: 0,
+    gap: theme.spacing.sm,
+    alignItems: 'stretch',
+  },
+  title: {
     ...theme.typography.section,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
     color: theme.colors.textPrimary,
   },
   subtitle: {
     ...theme.typography.meta,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
   actionPill: {
@@ -70,7 +76,7 @@ const styles = StyleSheet.create({
   },
   action: {
     ...theme.typography.meta,
-    ...rtlText,
+    ...logicalText,
     color: theme.colors.primary,
   },
 });

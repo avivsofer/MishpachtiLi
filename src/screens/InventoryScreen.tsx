@@ -24,7 +24,7 @@ import {
 import { AppTabScreenProps } from '../navigation/types';
 import { selectInventoryItems } from '../store/selectors';
 import { useAppStore } from '../store/useAppStore';
-import { rtlRow, rtlText, theme } from '../theme';
+import { logicalRow, logicalTextBlock, theme } from '../theme';
 import { stockStatusMeta } from '../utils/status';
 
 type FilterKey = 'all' | 'inStock' | 'lowStock' | 'outOfStock';
@@ -410,7 +410,7 @@ const styles = StyleSheet.create({
     gap: theme.spacing.md,
   },
   overviewRow: {
-    ...rtlRow,
+    ...logicalRow,
     gap: theme.spacing.sm,
   },
   overviewCard: {
@@ -427,16 +427,15 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     fontWeight: '700',
     color: theme.colors.textPrimary,
-    textAlign: 'right',
-    writingDirection: 'rtl',
+    ...logicalTextBlock,
   },
   overviewLabel: {
     ...theme.typography.meta,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
   filterRow: {
-    ...rtlRow,
+    ...logicalRow,
     flexWrap: 'wrap',
     gap: theme.spacing.sm,
   },
@@ -448,7 +447,7 @@ const styles = StyleSheet.create({
   },
   sheetOptionDescription: {
     ...theme.typography.meta,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
 });

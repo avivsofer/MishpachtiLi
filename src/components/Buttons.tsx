@@ -9,7 +9,7 @@ import {
   type ViewStyle,
 } from 'react-native';
 
-import { rtlRow, rtlText, theme } from '../theme';
+import { logicalRow, logicalText, theme } from '../theme';
 
 type IconName = ComponentProps<typeof MaterialCommunityIcons>['name'];
 type ButtonSize = 'default' | 'small';
@@ -238,14 +238,15 @@ const styles = StyleSheet.create({
   },
   label: {
     ...theme.typography.button,
-    ...rtlText,
+    ...logicalText,
+    flexShrink: 1,
   },
   smallLabel: {
     fontSize: 14,
     lineHeight: 18,
   },
   labelRow: {
-    ...rtlRow,
+    ...logicalRow,
     alignItems: 'center',
     justifyContent: 'center',
     gap: theme.spacing.sm,
