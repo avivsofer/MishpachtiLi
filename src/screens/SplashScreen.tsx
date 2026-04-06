@@ -3,7 +3,7 @@ import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
 import { RootScreenProps } from '../navigation/types';
 import { useAppStore } from '../store/useAppStore';
-import { rtlText, theme } from '../theme';
+import { inlineEnd, inlineStart, logicalText, logicalTextBlock, theme } from '../theme';
 
 export function SplashScreen({ navigation }: RootScreenProps<'Splash'>) {
   const hasHydrated = useAppStore((state) => state.hasHydrated);
@@ -64,20 +64,20 @@ const styles = StyleSheet.create({
   orbLarge: {
     position: 'absolute',
     top: 100,
-    right: -40,
     width: 220,
     height: 220,
     borderRadius: 110,
     backgroundColor: theme.colors.primarySoft,
+    ...inlineStart(-40),
   },
   orbSmall: {
     position: 'absolute',
     bottom: 120,
-    left: -30,
     width: 140,
     height: 140,
     borderRadius: 70,
     backgroundColor: theme.colors.accentSoft,
+    ...inlineEnd(-30),
   },
   brand: {
     alignItems: 'center',
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   },
   kicker: {
     ...theme.typography.label,
-    ...rtlText,
+    ...logicalText,
     color: theme.colors.primary,
   },
   title: {
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     ...theme.typography.body,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
 });

@@ -12,7 +12,7 @@ import {
 } from '../components';
 import { AppStackScreenProps } from '../navigation/types';
 import { useAppStore } from '../store/useAppStore';
-import { ltrText, rtlText, theme } from '../theme';
+import { logicalTextBlock, ltrText, theme } from '../theme';
 
 export function SettingsScreen({ navigation }: AppStackScreenProps<'Settings'>) {
   const household = useAppStore((state) => state.household);
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   },
   metaText: {
     ...theme.typography.meta,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
   inlineLtr: {

@@ -3,7 +3,7 @@ import type { StyleProp, ViewStyle } from 'react-native';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { rtlView, theme } from '../theme';
+import { theme } from '../theme';
 
 type AppScreenProps = PropsWithChildren<{
   scrollable?: boolean;
@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: theme.colors.background,
-    ...rtlView,
   },
   decor: {
     position: 'absolute',
@@ -50,7 +49,7 @@ const styles = StyleSheet.create({
     right: 0,
   },
   content: {
-    ...rtlView,
+    alignItems: 'stretch',
     paddingHorizontal: theme.layout.screenPadding,
     paddingTop: theme.spacing.lg,
     paddingBottom: theme.layout.tabBarHeight + theme.spacing.hero,

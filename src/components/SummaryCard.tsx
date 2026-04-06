@@ -2,7 +2,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import type { ComponentProps } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { inlineStart, rtlRow, rtlTextBlock, theme } from '../theme';
+import { inlineStart, logicalRow, logicalTextBlock, theme } from '../theme';
 import type { Tone } from '../types/ui';
 
 type IconName = ComponentProps<typeof MaterialCommunityIcons>['name'];
@@ -111,8 +111,7 @@ const styles = StyleSheet.create({
     ...inlineStart(0),
   },
   header: {
-    ...rtlRow,
-    justifyContent: 'space-between',
+    ...logicalRow,
     alignItems: 'flex-start',
     gap: theme.spacing.md,
   },
@@ -134,16 +133,16 @@ const styles = StyleSheet.create({
     lineHeight: 34,
     fontWeight: '700',
     color: theme.colors.textPrimary,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
   },
   label: {
     ...theme.typography.bodyStrong,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
     color: theme.colors.textPrimary,
   },
   caption: {
     ...theme.typography.meta,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
 });

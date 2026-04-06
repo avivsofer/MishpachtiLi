@@ -18,7 +18,7 @@ import {
 import { AppTabScreenProps } from '../navigation/types';
 import { selectMembers, selectShoppingItems } from '../store/selectors';
 import { useAppStore } from '../store/useAppStore';
-import { logicalRow, logicalTextBlock, theme } from '../theme';
+import { inlineEnd, logicalRow, logicalTextBlock, theme } from '../theme';
 
 const easeLayout = {
   duration: 220,
@@ -230,12 +230,12 @@ const styles = StyleSheet.create({
   backgroundDecor: {
     position: 'absolute',
     top: -50,
-    left: -20,
     width: 180,
     height: 180,
     borderRadius: 90,
     backgroundColor: theme.colors.accentSoft,
     opacity: 0.55,
+    ...inlineEnd(-20),
   },
   section: {
     gap: theme.spacing.lg,

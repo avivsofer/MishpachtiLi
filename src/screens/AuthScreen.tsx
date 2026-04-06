@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { AppHeader, AppScreen, PrimaryButton, TextField } from '../components';
 import { RootScreenProps } from '../navigation/types';
 import { useAppStore } from '../store/useAppStore';
-import { pickByDirection, rtlText, theme } from '../theme';
+import { logicalTextBlock, pickByDirection, theme } from '../theme';
 
 export function AuthScreen({ navigation }: RootScreenProps<'Auth'>) {
   const signIn = useAppStore((state) => state.signIn);
@@ -65,12 +65,12 @@ const styles = StyleSheet.create({
   },
   panelTitle: {
     ...theme.typography.section,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textPrimary,
   },
   panelText: {
     ...theme.typography.body,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
 });

@@ -19,7 +19,6 @@ export function AppStackNavigator() {
         headerShown: false,
         contentStyle: {
           backgroundColor: theme.colors.background,
-          direction: pickByDirection('rtl', 'ltr'),
         },
         animation: pickByDirection('slide_from_right', 'slide_from_left'),
       }}

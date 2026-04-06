@@ -8,7 +8,7 @@ import {
   logicalText,
   logicalTextBlock,
   ltrText,
-  rtlText,
+  textForDirection,
   theme,
 } from '../theme';
 import { PrimaryButton } from './Buttons';
@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
     ...theme.typography.body,
   },
   inputRtl: {
-    ...rtlText,
+    ...textForDirection('rtl'),
   },
   inputLtr: {
     ...ltrText,
@@ -300,7 +300,7 @@ const styles = StyleSheet.create({
     flex: 1,
     color: theme.colors.textPrimary,
     ...theme.typography.body,
-    ...logicalText,
+    ...textForDirection('rtl'),
   },
   searchClear: {
     width: 28,
@@ -374,7 +374,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.spacing.lg,
     color: theme.colors.textPrimary,
     ...theme.typography.body,
-    ...rtlText,
+    ...textForDirection('rtl'),
   },
   quickInputHero: {
     minHeight: 56,
@@ -390,7 +390,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.spacing.lg,
     color: theme.colors.textPrimary,
     ...theme.typography.body,
-    ...rtlText,
+    ...logicalText,
   },
   quickInputSecondaryHero: {
     width: 116,

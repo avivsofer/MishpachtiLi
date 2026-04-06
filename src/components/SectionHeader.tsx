@@ -40,10 +40,12 @@ export function SectionHeader({
 
 const styles = StyleSheet.create({
   wrapper: {
+    alignSelf: 'stretch',
     gap: theme.spacing.sm,
   },
   topRow: {
     ...logicalRow,
+    width: '100%',
     alignItems: 'flex-start',
     gap: theme.spacing.md,
   },

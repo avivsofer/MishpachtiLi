@@ -13,7 +13,7 @@ import {
 } from '../components';
 import { AppStackScreenProps } from '../navigation/types';
 import { useAppStore } from '../store/useAppStore';
-import { ltrText, rtlRow, rtlText, theme } from '../theme';
+import { logicalRow, logicalTextBlock, ltrText, theme } from '../theme';
 import { memberRoleTone } from '../utils/status';
 
 export function HouseholdMembersScreen({
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   },
   inviteTitle: {
     ...theme.typography.meta,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.primary,
   },
   inviteCode: {
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
   },
   inviteText: {
     ...theme.typography.body,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
   section: {
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.spacing.xl,
   },
   roleRow: {
-    ...rtlRow,
+    ...logicalRow,
     flexWrap: 'wrap',
     gap: theme.spacing.sm,
   },

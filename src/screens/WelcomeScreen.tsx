@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { AppScreen, PrimaryButton, StatusChip } from '../components';
 import { RootScreenProps } from '../navigation/types';
 import { useAppStore } from '../store/useAppStore';
-import { pickByDirection, rtlRow, rtlText, theme } from '../theme';
+import { logicalRow, logicalTextBlock, pickByDirection, theme } from '../theme';
 
 export function WelcomeScreen({ navigation }: RootScreenProps<'Welcome'>) {
   const completeWelcome = useAppStore((state) => state.completeWelcome);
@@ -73,12 +73,12 @@ const styles = StyleSheet.create({
   },
   title: {
     ...theme.typography.hero,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textPrimary,
   },
   subtitle: {
     ...theme.typography.body,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
   featureList: {
@@ -92,16 +92,16 @@ const styles = StyleSheet.create({
   },
   featureTitle: {
     ...theme.typography.cardTitle,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textPrimary,
   },
   featureText: {
     ...theme.typography.body,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
   featureRow: {
-    ...rtlRow,
+    ...logicalRow,
     gap: theme.spacing.md,
   },
   miniFeature: {
@@ -115,12 +115,12 @@ const styles = StyleSheet.create({
   },
   miniTitle: {
     ...theme.typography.bodyStrong,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textPrimary,
   },
   miniText: {
     ...theme.typography.meta,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
   footer: {

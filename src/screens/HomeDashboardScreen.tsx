@@ -20,11 +20,11 @@ import {
 } from '../store/selectors';
 import { useAppStore } from '../store/useAppStore';
 import {
+  inlineStart,
   ltrText,
+  logicalRow,
+  logicalTextBlock,
   pickByDirection,
-  rtlRow,
-  rtlText,
-  rtlTextBlock,
   theme,
 } from '../theme';
 import { getGreeting } from '../utils/formatters';
@@ -324,12 +324,12 @@ const styles = StyleSheet.create({
   backgroundDecor: {
     position: 'absolute',
     top: -30,
-    right: -30,
     width: 220,
     height: 220,
     borderRadius: 110,
     backgroundColor: theme.colors.primarySoft,
     opacity: 0.42,
+    ...inlineStart(-30),
   },
   heroCard: {
     borderRadius: theme.radius.xl,
@@ -341,8 +341,7 @@ const styles = StyleSheet.create({
     ...theme.shadow.card,
   },
   heroTop: {
-    ...rtlRow,
-    justifyContent: 'space-between',
+    ...logicalRow,
     gap: theme.spacing.lg,
     alignItems: 'flex-start',
   },
@@ -352,14 +351,14 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
   },
   heroMetaRow: {
-    ...rtlRow,
+    ...logicalRow,
     flexWrap: 'wrap',
     alignItems: 'center',
     gap: theme.spacing.sm,
   },
   heroInvite: {
     ...theme.typography.meta,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
   heroInviteCode: {
@@ -368,12 +367,12 @@ const styles = StyleSheet.create({
   },
   heroTitle: {
     ...theme.typography.title,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
     color: theme.colors.textPrimary,
   },
   heroText: {
     ...theme.typography.body,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
   heroBadge: {
@@ -387,7 +386,7 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.primaryBorder,
   },
   heroActions: {
-    ...rtlRow,
+    ...logicalRow,
     gap: theme.spacing.sm,
   },
   heroActionPrimary: {
@@ -400,7 +399,7 @@ const styles = StyleSheet.create({
     gap: theme.spacing.lg,
   },
   summaryGrid: {
-    ...rtlRow,
+    ...logicalRow,
     flexWrap: 'wrap',
     gap: theme.spacing.md,
   },
@@ -408,7 +407,7 @@ const styles = StyleSheet.create({
     gap: theme.spacing.sm,
   },
   actionTile: {
-    ...rtlRow,
+    ...logicalRow,
     alignItems: 'center',
     gap: theme.spacing.md,
     borderRadius: theme.radius.lg,
@@ -438,12 +437,12 @@ const styles = StyleSheet.create({
   },
   actionTileTitle: {
     ...theme.typography.bodyStrong,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
     color: theme.colors.textPrimary,
   },
   actionTileSubtitle: {
     ...theme.typography.meta,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
   attentionPanel: {
@@ -455,7 +454,7 @@ const styles = StyleSheet.create({
     ...theme.shadow.soft,
   },
   attentionRow: {
-    ...rtlRow,
+    ...logicalRow,
     alignItems: 'center',
     gap: theme.spacing.md,
     paddingHorizontal: theme.spacing.lg,
@@ -488,12 +487,12 @@ const styles = StyleSheet.create({
   },
   attentionTitle: {
     ...theme.typography.bodyStrong,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
     color: theme.colors.textPrimary,
   },
   attentionSubtitle: {
     ...theme.typography.meta,
-    ...rtlTextBlock,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
 });

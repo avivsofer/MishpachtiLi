@@ -1,6 +1,6 @@
 import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { rtlText, rtlView, theme } from '../theme';
+import { logicalTextBlock, logicalView, theme } from '../theme';
 import { PrimaryButton, SecondaryButton } from './Buttons';
 
 type ConfirmationDialogProps = {
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
   dialog: {
-    ...rtlView,
+    ...logicalView,
     width: '100%',
     borderRadius: theme.radius.xl,
     backgroundColor: theme.colors.backgroundElevated,
@@ -72,12 +72,12 @@ const styles = StyleSheet.create({
   },
   title: {
     ...theme.typography.section,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textPrimary,
   },
   description: {
     ...theme.typography.body,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
   actions: {

@@ -24,7 +24,7 @@ import {
 import { AppTabScreenProps } from '../navigation/types';
 import { selectInventoryItems } from '../store/selectors';
 import { useAppStore } from '../store/useAppStore';
-import { logicalRow, logicalTextBlock, theme } from '../theme';
+import { inlineStart, logicalRow, logicalTextBlock, theme } from '../theme';
 import { stockStatusMeta } from '../utils/status';
 
 type FilterKey = 'all' | 'inStock' | 'lowStock' | 'outOfStock';
@@ -399,12 +399,12 @@ const styles = StyleSheet.create({
   backgroundDecor: {
     position: 'absolute',
     top: -40,
-    right: -30,
     width: 200,
     height: 200,
     borderRadius: 100,
     backgroundColor: theme.colors.primarySoft,
     opacity: 0.48,
+    ...inlineStart(-30),
   },
   topControls: {
     gap: theme.spacing.md,

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { DevSettings, I18nManager, StyleSheet, Text, View } from 'react-native';
 
 import { AppRoot } from './src/app/AppRoot';
-import { rtlText, theme } from './src/theme';
+import { logicalText, logicalTextBlock, theme } from './src/theme';
 
 function ensureRtlEnabled() {
   if (I18nManager.isRTL) {
@@ -56,12 +56,12 @@ const styles = StyleSheet.create({
   },
   bootTitle: {
     ...theme.typography.section,
-    ...rtlText,
+    ...logicalText,
     color: theme.colors.textPrimary,
   },
   bootText: {
     ...theme.typography.body,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
 });

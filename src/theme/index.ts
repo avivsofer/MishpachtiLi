@@ -142,23 +142,13 @@ export const theme = {
   },
 } as const;
 
-export const rtlText = {
-  textAlign: 'right' as const,
-  writingDirection: 'rtl' as const,
-};
-
-export const rtlTextBlock = {
-  ...rtlText,
-  alignSelf: 'stretch' as const,
-};
-
 export const ltrText = {
   textAlign: 'left' as const,
   writingDirection: 'ltr' as const,
 };
 
 const layoutDirection = (isRTL ? 'rtl' : 'ltr') as ViewStyle['direction'];
-const logicalWritingDirection = (isRTL ? 'rtl' : 'ltr') as TextStyle['writingDirection'];
+const logicalDirection = (isRTL ? 'rtl' : 'ltr') as 'rtl' | 'ltr';
 export const textStartAlign = (isRTL ? 'right' : 'left') as TextStyle['textAlign'];
 export const textEndAlign = (isRTL ? 'left' : 'right') as TextStyle['textAlign'];
 export const inlineStartAlign = (isRTL ? 'flex-end' : 'flex-start') as ViewStyle['alignItems'];
@@ -166,33 +156,45 @@ export const inlineEndAlign = (isRTL ? 'flex-start' : 'flex-end') as ViewStyle['
 export const inlineStartSelf = (isRTL ? 'flex-end' : 'flex-start') as ViewStyle['alignSelf'];
 export const inlineEndSelf = (isRTL ? 'flex-start' : 'flex-end') as ViewStyle['alignSelf'];
 
-export const logicalText = {
-  textAlign: textStartAlign,
-  writingDirection: logicalWritingDirection,
-};
+export function textForDirection(direction: 'rtl' | 'ltr'): TextStyle {
+  return {
+    textAlign: direction === 'rtl' ? 'right' : 'left',
+    writingDirection: direction,
+  };
+}
 
-export const logicalTextBlock = {
-  ...logicalText,
-  alignSelf: 'stretch' as const,
-};
+export function textBlockForDirection(direction: 'rtl' | 'ltr'): TextStyle {
+  return {
+    ...textForDirection(direction),
+    alignSelf: 'stretch',
+  };
+}
 
-export const logicalRow = {
-  direction: layoutDirection,
-  flexDirection: (isRTL ? 'row-reverse' : 'row') as ViewStyle['flexDirection'],
-};
-
-export const logicalRowReverse = {
-  direction: layoutDirection,
-  flexDirection: (isRTL ? 'row' : 'row-reverse') as ViewStyle['flexDirection'],
-};
-
-export const rtlRow = {
-  ...logicalRow,
-};
-
-export const rtlView = {
+export const logicalView = {
   direction: layoutDirection,
 };
+
+export function rowForDirection(direction: 'rtl' | 'ltr'): ViewStyle {
+  return {
+    direction,
+    flexDirection: 'row',
+  };
+}
+
+export function rowReverseForDirection(direction: 'rtl' | 'ltr'): ViewStyle {
+  return {
+    direction,
+    flexDirection: 'row-reverse',
+  };
+}
+
+export const logicalText = textForDirection(logicalDirection);
+
+export const logicalTextBlock = textBlockForDirection(logicalDirection);
+
+export const logicalRow = rowForDirection(logicalDirection);
+
+export const logicalRowReverse = rowReverseForDirection(logicalDirection);
 
 export function pickByDirection<T>(rtlValue: T, ltrValue: T) {
   return isRTL ? rtlValue : ltrValue;

@@ -13,7 +13,7 @@ import {
 } from '../components';
 import { AppStackScreenProps } from '../navigation/types';
 import { useAppStore } from '../store/useAppStore';
-import { rtlRow, theme } from '../theme';
+import { logicalRow, theme } from '../theme';
 import { formatDueDate } from '../utils/formatters';
 import { taskStatusMeta } from '../utils/status';
 
@@ -171,7 +171,7 @@ export function TasksScreen({ navigation }: AppStackScreenProps<'Tasks'>) {
 
 const styles = StyleSheet.create({
   filterRow: {
-    ...rtlRow,
+    ...logicalRow,
     flexWrap: 'wrap',
     gap: theme.spacing.sm,
   },

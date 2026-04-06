@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from 'react';
 import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { rtlText, rtlView, theme } from '../theme';
+import { logicalTextBlock, logicalView, theme } from '../theme';
 
 type ModalSheetProps = PropsWithChildren<{
   visible: boolean;
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   sheet: {
-    ...rtlView,
+    ...logicalView,
     backgroundColor: theme.colors.backgroundElevated,
     borderTopLeftRadius: theme.radius.xl,
     borderTopRightRadius: theme.radius.xl,
@@ -70,12 +70,12 @@ const styles = StyleSheet.create({
   },
   title: {
     ...theme.typography.section,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textPrimary,
   },
   subtitle: {
     ...theme.typography.body,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
   content: {

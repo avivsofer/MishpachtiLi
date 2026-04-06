@@ -10,7 +10,7 @@ import {
 } from '../components';
 import { RootScreenProps } from '../navigation/types';
 import { useAppStore } from '../store/useAppStore';
-import { ltrText, rtlRow, rtlText, theme } from '../theme';
+import { logicalRow, logicalTextBlock, ltrText, theme } from '../theme';
 
 export function HouseholdSetupScreen({
   navigation,
@@ -97,7 +97,7 @@ export function HouseholdSetupScreen({
 
 const styles = StyleSheet.create({
   modeRow: {
-    ...rtlRow,
+    ...logicalRow,
     flexWrap: 'wrap',
     gap: theme.spacing.sm,
   },
@@ -111,12 +111,12 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     ...theme.typography.section,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textPrimary,
   },
   cardText: {
     ...theme.typography.body,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
   inviteCard: {
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   },
   inviteLabel: {
     ...theme.typography.meta,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.primary,
   },
   inviteCode: {

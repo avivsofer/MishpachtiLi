@@ -11,7 +11,7 @@ import {
 } from '../components';
 import { AppStackScreenProps } from '../navigation/types';
 import { useAppStore } from '../store/useAppStore';
-import { inlineStartAlign, rtlRow, rtlText, theme } from '../theme';
+import { inlineStartAlign, logicalRow, logicalTextBlock, theme } from '../theme';
 import { formatProgress } from '../utils/formatters';
 
 export function SingleListScreen({
@@ -128,12 +128,12 @@ const styles = StyleSheet.create({
   },
   progressTitle: {
     ...theme.typography.title,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textPrimary,
   },
   progressText: {
     ...theme.typography.body,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
   progressTrack: {
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     gap: theme.spacing.sm,
   },
   itemRow: {
-    ...rtlRow,
+    ...logicalRow,
     alignItems: 'center',
     gap: theme.spacing.md,
     borderRadius: theme.radius.lg,
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
   },
   itemTitle: {
     ...theme.typography.body,
-    ...rtlText,
+    ...logicalTextBlock,
     flex: 1,
     color: theme.colors.textPrimary,
   },

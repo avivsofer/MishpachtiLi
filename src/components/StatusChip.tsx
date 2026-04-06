@@ -4,10 +4,8 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import {
   inlineStartSelf,
-  logicalRow,
-  logicalRowReverse,
-  ltrText,
-  rtlText,
+  rowForDirection,
+  textForDirection,
   theme,
 } from '../theme';
 import type { Tone } from '../types/ui';
@@ -118,20 +116,20 @@ const styles = StyleSheet.create({
     gap: theme.spacing.xs,
   },
   contentRtl: {
-    ...logicalRow,
+    ...rowForDirection('rtl'),
   },
   contentLtr: {
-    ...logicalRowReverse,
+    ...rowForDirection('ltr'),
   },
   label: {
     ...theme.typography.meta,
     flexShrink: 1,
   },
   labelRtl: {
-    ...rtlText,
+    ...textForDirection('rtl'),
   },
   labelLtr: {
-    ...ltrText,
+    ...textForDirection('ltr'),
   },
   labelCompact: {
     fontSize: 12,

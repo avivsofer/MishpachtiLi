@@ -3,7 +3,7 @@ import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useAppStore } from '../store/useAppStore';
-import { rtlRow, rtlText, theme } from '../theme';
+import { logicalRow, logicalTextBlock, theme } from '../theme';
 
 export function ToastHost() {
   const insets = useSafeAreaInsets();
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.border,
     paddingVertical: theme.spacing.lg,
     paddingHorizontal: theme.spacing.xl,
-    ...rtlRow,
+    ...logicalRow,
     gap: theme.spacing.md,
     ...theme.shadow.floating,
   },
@@ -94,12 +94,12 @@ const styles = StyleSheet.create({
   },
   title: {
     ...theme.typography.bodyStrong,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textPrimary,
   },
   description: {
     ...theme.typography.meta,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
 });

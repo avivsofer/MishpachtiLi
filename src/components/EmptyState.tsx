@@ -2,7 +2,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import type { ComponentProps } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { rtlText, theme } from '../theme';
+import { logicalTextBlock, theme } from '../theme';
 import { PrimaryButton } from './Buttons';
 
 type IconName = ComponentProps<typeof MaterialCommunityIcons>['name'];
@@ -68,12 +68,12 @@ const styles = StyleSheet.create({
   },
   title: {
     ...theme.typography.section,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textPrimary,
   },
   description: {
     ...theme.typography.body,
-    ...rtlText,
+    ...logicalTextBlock,
     color: theme.colors.textSecondary,
   },
 });
